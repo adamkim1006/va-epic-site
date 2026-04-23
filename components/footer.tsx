@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Phone, Mail, MapPin, Clock } from "lucide-react"
+import { patientSupportLinks } from "@/content/site-content"
 import { practice, primaryNav, servicePages } from "@/lib/site"
 
 export function Footer() {
@@ -51,6 +52,16 @@ export function Footer() {
             <h3 className="font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-3">
               {primaryNav.slice(1).map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-primary-foreground/80 transition-colors hover:text-white"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+              {patientSupportLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}

@@ -18,14 +18,53 @@ import {
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [errorMessage, setErrorMessage] = useState("")
+  const [service, setService] = useState("")
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500))
-    setIsSubmitting(false)
-    setIsSubmitted(true)
+    setErrorMessage("")
+
+    const form = e.currentTarget as HTMLFormElement
+    const formData = new FormData(form)
+
+    const payload = {
+      firstName: String(formData.get("firstName") ?? "").trim(),
+      lastName: String(formData.get("lastName") ?? "").trim(),
+      email: String(formData.get("email") ?? "").trim(),
+      phone: String(formData.get("phone") ?? "").trim(),
+      service: String(formData.get("service") ?? "").trim(),
+      message: String(formData.get("message") ?? "").trim(),
+    }
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      })
+
+      const result = (await response.json()) as { ok?: boolean; error?: string }
+
+      if (!response.ok || !result.ok) {
+        throw new Error(result.error || "Something went wrong while sending your message.")
+      }
+
+      form.reset()
+      setService("")
+      setIsSubmitted(true)
+    } catch (error) {
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : "Something went wrong while sending your message."
+      )
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   if (isSubmitted) {
@@ -57,27 +96,32 @@ export function ContactForm() {
         Fill out the form below and we will get back to you as soon as possible.
       </p>
       <form onSubmit={handleSubmit} className="space-y-6">
+        {errorMessage ? (
+          <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            {errorMessage}
+          </div>
+        ) : null}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label htmlFor="firstName">First Name</Label>
-            <Input id="firstName" placeholder="John" required />
+            <Input id="firstName" name="firstName" placeholder="John" required />
           </div>
           <div className="space-y-2">
             <Label htmlFor="lastName">Last Name</Label>
-            <Input id="lastName" placeholder="Doe" required />
+            <Input id="lastName" name="lastName" placeholder="Doe" required />
           </div>
         </div>
         <div className="space-y-2">
           <Label htmlFor="email">Email</Label>
-          <Input id="email" type="email" placeholder="john@example.com" required />
+          <Input id="email" name="email" type="email" placeholder="john@example.com" required />
         </div>
         <div className="space-y-2">
           <Label htmlFor="phone">Phone Number</Label>
-          <Input id="phone" type="tel" placeholder="(703) 466-5115" required />
+          <Input id="phone" name="phone" type="tel" placeholder="(703) 466-5115" required />
         </div>
         <div className="space-y-2">
           <Label htmlFor="service">Service of Interest</Label>
-          <Select>
+          <Select value={service} onValueChange={setService}>
             <SelectTrigger>
               <SelectValue placeholder="Select a service" />
             </SelectTrigger>
@@ -90,11 +134,13 @@ export function ContactForm() {
               <SelectItem value="other">Other</SelectItem>
             </SelectContent>
           </Select>
+          <input type="hidden" name="service" value={service} />
         </div>
         <div className="space-y-2">
           <Label htmlFor="message">Message</Label>
           <Textarea
             id="message"
+            name="message"
             placeholder="Tell us about your needs or any questions you have..."
             rows={4}
             required

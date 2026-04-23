@@ -21,6 +21,7 @@ import { Html } from "@react-three/drei"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { ScrollToPlugin } from "gsap/ScrollToPlugin"
+import * as THREE from "three"
 
 // Register once at module load. Safe to call multiple times — GSAP deduplicates.
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
@@ -136,6 +137,52 @@ export function GSAPInvalidator() {
   }, [invalidate])
 
   return null
+}
+
+export function cloneScene<T extends THREE.Object3D>(scene: T): T {
+  return scene.clone(true)
+}
+
+export function replaceSceneMaterials(
+  root: THREE.Object3D,
+  createMaterial: () => THREE.Material
+) {
+  root.traverse((child) => {
+    if (!(child instanceof THREE.Mesh)) return
+
+    child.castShadow = true
+    child.receiveShadow = true
+    if (Array.isArray(child.material)) {
+      child.material.forEach((material) => material.dispose())
+    } else {
+      child.material.dispose()
+    }
+    child.material = createMaterial()
+  })
+}
+
+export function normalizeSceneToHeight(
+  root: THREE.Object3D,
+  targetHeight: number
+) {
+  root.position.set(0, 0, 0)
+  root.rotation.set(0, 0, 0)
+  root.updateMatrixWorld(true)
+
+  const initialBox = new THREE.Box3().setFromObject(root)
+  const size = initialBox.getSize(new THREE.Vector3())
+  const currentHeight = size.y || 1
+  const scale = targetHeight / currentHeight
+
+  root.scale.setScalar(scale)
+  root.updateMatrixWorld(true)
+
+  const box = new THREE.Box3().setFromObject(root)
+  const center = box.getCenter(new THREE.Vector3())
+  root.position.x -= center.x
+  root.position.z -= center.z
+  root.position.y -= box.min.y
+  root.updateMatrixWorld(true)
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

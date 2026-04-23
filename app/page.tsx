@@ -9,6 +9,7 @@ import { FinancingSection } from "@/components/home/financing-section"
 import { DoctorSection } from "@/components/home/doctor-section"
 import { CTASection } from "@/components/cta-section"
 import { SiteFilesCarousel } from "@/components/site-files-carousel"
+import { editablePageContent } from "@/content/site-content"
 
 export default function HomePage() {
   return (
@@ -16,9 +17,9 @@ export default function HomePage() {
       <Navigation />
       <main id="main-content">
         <HeroSection
-          subtitle="Virginia Esthetic Perio & Implant Center"
-          title="Implants, Periodontology, and Complex Smile Planning in Chantilly"
-          description="VA EPIC provides specialist care for missing teeth, gum disease, recession, and full-arch reconstruction. We focus on accurate diagnosis, personalized treatment plans, and practical guidance for even the most challenging cases."
+          subtitle={editablePageContent.homeHero.subtitle}
+          title={editablePageContent.homeHero.title}
+          description={editablePageContent.homeHero.description}
           primaryButtonText="Schedule Consultation"
           primaryButtonHref="/contact"
           secondaryButtonText="Explore Our Services"

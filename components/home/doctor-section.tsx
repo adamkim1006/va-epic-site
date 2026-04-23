@@ -4,6 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { motion } from "framer-motion"
 import { Award, GraduationCap, Heart, ArrowRight } from "lucide-react"
+import { editablePageContent } from "@/content/site-content"
 import { Button } from "@/components/ui/button"
 import { Section, SectionHeader } from "@/components/section"
 
@@ -52,9 +53,9 @@ export function DoctorSection() {
         <div>
           <SectionHeader
             align="left"
-            subtitle="Meet Your Doctor"
-            title="Dr. Dong-Soo Park, DDS, MS, PhD"
-            description="Dr. Park brings extensive military and academic experience in periodontics, implantology, and complex treatment planning. His approach emphasizes careful diagnosis, clear communication, and practical solutions built for long-term success."
+            subtitle={editablePageContent.doctorSection.subtitle}
+            title={editablePageContent.doctorSection.title}
+            description={editablePageContent.doctorSection.description}
           />
           <motion.div
             initial={{ opacity: 0, y: 20 }}

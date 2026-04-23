@@ -1,33 +1,44 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Sparkles, Scissors, Bone, RefreshCw } from "lucide-react"
+import { Bone, Scissors, Shield, Sparkles } from "lucide-react"
 import { Section, SectionHeader } from "@/components/section"
 
 const treatments = [
   {
     icon: Sparkles,
     title: "Scaling & Root Planing",
-    description: "Deep cleaning below the gumline to remove plaque, tartar, and bacteria. The root surfaces are smoothed to help gums reattach to teeth.",
+    description:
+      "Deep cleaning below the gumline to remove plaque, tartar, and bacteria, combined with air polishing using glycine powder for biofilm removal. Root surfaces are smoothed to help gums reattach to teeth.",
     ideal: "For mild to moderate periodontitis",
   },
   {
     icon: Scissors,
     title: "Gum Grafting",
-    description: "Tissue is taken from another area (often the palate) to cover exposed roots and restore the gumline. This protects roots and improves aesthetics.",
+    description:
+      "Tissue is used to cover exposed roots and restore the gumline, helping protect roots and improve esthetics. Dr. Park also uses CGF from the patient's own blood to support healing.",
     ideal: "For gum recession",
   },
   {
     icon: Bone,
     title: "Bone Grafting",
-    description: "Regenerative procedure that rebuilds bone lost to periodontal disease. Essential for maintaining tooth stability and preparing for implants.",
+    description:
+      "Regenerative treatment that rebuilds bone lost to periodontal disease and helps support tooth stability or future implant planning. CGF from the patient's own blood is used to help accelerate healing.",
     ideal: "For bone loss from periodontitis",
   },
   {
-    icon: RefreshCw,
-    title: "LANAP Laser Therapy",
-    description: "Minimally invasive laser treatment that targets diseased tissue while preserving healthy gum. Faster healing and less discomfort than traditional surgery.",
+    icon: Shield,
+    title: "Pocket Reduction Surgery",
+    description:
+      "Surgical access is used to reduce deep periodontal pockets, remove diseased tissue more thoroughly, and create a healthier architecture that is easier to maintain.",
     ideal: "For moderate to severe periodontitis",
+  },
+  {
+    icon: Sparkles,
+    title: "Crown Lengthening",
+    description:
+      "Gum and bone are carefully recontoured to expose more tooth structure when needed for restorative treatment or to improve esthetic proportions.",
+    ideal: "For restorative access or gummy-smile correction",
   },
 ]
 

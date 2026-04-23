@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import { Phone, Mail, MapPin, Clock, Car } from "lucide-react"
+import { officeHours } from "@/content/site-content"
 import { practice } from "@/lib/site"
 
 const contactDetails = [
@@ -26,16 +27,6 @@ const contactDetails = [
     href: practice.mapsHref,
     description: "Free parking available",
   },
-]
-
-const officeHours = [
-  { day: "Monday", hours: "Call for availability" },
-  { day: "Tuesday", hours: "Call for availability" },
-  { day: "Wednesday", hours: "Call for availability" },
-  { day: "Thursday", hours: "Call for availability" },
-  { day: "Friday", hours: "Call for availability" },
-  { day: "Saturday", hours: "1st & 3rd by appointment" },
-  { day: "Sunday", hours: "Closed" },
 ]
 
 export function ContactInfo() {

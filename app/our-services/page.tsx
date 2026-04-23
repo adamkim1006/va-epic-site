@@ -6,13 +6,14 @@ import { Footer } from "@/components/footer"
 import { HeroSection } from "@/components/hero-section"
 import { Section, SectionHeader } from "@/components/section"
 import { CTASection } from "@/components/cta-section"
+import { buildMetadata } from "@/lib/seo"
 import { servicePages } from "@/lib/site"
 
-export const metadata: Metadata = {
-  title: "Our Services",
-  description:
-    "Explore dental implants, All-on-X full-arch reconstruction, and periodontal care at VA EPIC in Chantilly, Virginia.",
-}
+export const metadata: Metadata = buildMetadata(
+  "Our Services",
+  "Explore dental implants, All-on-X full-arch reconstruction, and periodontal care at VA EPIC in Chantilly, Virginia.",
+  "/our-services"
+)
 
 export default function OurServicesPage() {
   return (

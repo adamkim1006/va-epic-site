@@ -1,0 +1,120 @@
+backend:
+  name: github
+  repo: adamkim1006/va-epic-site
+  branch: main
+  use_graphql: true
+  # For Vercel-hosted Decap, point these at your OAuth proxy domain.
+  # Example:
+  # base_url: https://your-decap-oauth.example.com
+  # auth_endpoint: auth
+
+local_backend: true
+
+site_url: https://va-epic-site.vercel.app
+display_url: https://va-epic-site.vercel.app
+logo_url: /images/va-epic-logo.jpg
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+publish_mode: editorial_workflow
+
+collections:
+  - name: "service_pages"
+    label: "Service Pages"
+    files:
+      - label: "Dental Implants"
+        name: "dental_implants"
+        file: "content/services/dental-implants-chantilly-va.md"
+        fields:
+          - { label: "Meta Title", name: "metaTitle", widget: "string" }
+          - { label: "Meta Description", name: "metaDescription", widget: "text" }
+          - { label: "Hero Subtitle", name: "heroSubtitle", widget: "string" }
+          - { label: "Hero Title", name: "heroTitle", widget: "string" }
+          - { label: "Hero Description", name: "heroDescription", widget: "text" }
+          - { label: "Hero Background Image", name: "heroBackgroundImageSrc", widget: "image" }
+          - { label: "Hero Background Position", name: "heroBackgroundPosition", widget: "string" }
+          - { label: "3D Section Subtitle", name: "visualSectionSubtitle", widget: "string" }
+          - { label: "3D Section Title", name: "visualSectionTitle", widget: "string" }
+          - { label: "3D Section Description", name: "visualSectionDescription", widget: "text" }
+          - label: "FAQs"
+            name: "faqs"
+            widget: "list"
+            fields:
+              - { label: "Question", name: "question", widget: "string" }
+              - { label: "Answer", name: "answer", widget: "text" }
+          - { label: "FAQ Title", name: "faqTitle", widget: "string" }
+          - { label: "FAQ Subtitle", name: "faqSubtitle", widget: "string" }
+          - { label: "FAQ Description", name: "faqDescription", widget: "text" }
+          - { label: "CTA Title", name: "ctaTitle", widget: "string" }
+          - { label: "CTA Description", name: "ctaDescription", widget: "text" }
+          - { label: "Page Content", name: "body", widget: "markdown" }
+      - label: "All-on-X"
+        name: "all_on_x"
+        file: "content/services/all-on-4-chantilly-va.md"
+        fields:
+          - { label: "Meta Title", name: "metaTitle", widget: "string" }
+          - { label: "Meta Description", name: "metaDescription", widget: "text" }
+          - { label: "Hero Subtitle", name: "heroSubtitle", widget: "string" }
+          - { label: "Hero Title", name: "heroTitle", widget: "string" }
+          - { label: "Hero Description", name: "heroDescription", widget: "text" }
+          - { label: "Hero Background Image", name: "heroBackgroundImageSrc", widget: "image" }
+          - { label: "Hero Background Position", name: "heroBackgroundPosition", widget: "string" }
+          - { label: "3D Section Subtitle", name: "visualSectionSubtitle", widget: "string" }
+          - { label: "3D Section Title", name: "visualSectionTitle", widget: "string" }
+          - { label: "3D Section Description", name: "visualSectionDescription", widget: "text" }
+          - label: "FAQs"
+            name: "faqs"
+            widget: "list"
+            fields:
+              - { label: "Question", name: "question", widget: "string" }
+              - { label: "Answer", name: "answer", widget: "text" }
+          - { label: "FAQ Title", name: "faqTitle", widget: "string" }
+          - { label: "FAQ Subtitle", name: "faqSubtitle", widget: "string" }
+          - { label: "FAQ Description", name: "faqDescription", widget: "text" }
+          - { label: "CTA Title", name: "ctaTitle", widget: "string" }
+          - { label: "CTA Description", name: "ctaDescription", widget: "text" }
+          - { label: "Page Content", name: "body", widget: "markdown" }
+      - label: "Periodontal Treatment"
+        name: "periodontal_treatment"
+        file: "content/services/periodontal-treatment-chantilly-va.md"
+        fields:
+          - { label: "Meta Title", name: "metaTitle", widget: "string" }
+          - { label: "Meta Description", name: "metaDescription", widget: "text" }
+          - { label: "Hero Subtitle", name: "heroSubtitle", widget: "string" }
+          - { label: "Hero Title", name: "heroTitle", widget: "string" }
+          - { label: "Hero Description", name: "heroDescription", widget: "text" }
+          - { label: "Hero Background Image", name: "heroBackgroundImageSrc", widget: "image" }
+          - { label: "Hero Background Position", name: "heroBackgroundPosition", widget: "string" }
+          - { label: "3D Section Subtitle", name: "visualSectionSubtitle", widget: "string" }
+          - { label: "3D Section Title", name: "visualSectionTitle", widget: "string" }
+          - { label: "3D Section Description", name: "visualSectionDescription", widget: "text" }
+          - label: "FAQs"
+            name: "faqs"
+            widget: "list"
+            fields:
+              - { label: "Question", name: "question", widget: "string" }
+              - { label: "Answer", name: "answer", widget: "text" }
+          - { label: "FAQ Title", name: "faqTitle", widget: "string" }
+          - { label: "FAQ Subtitle", name: "faqSubtitle", widget: "string" }
+          - { label: "FAQ Description", name: "faqDescription", widget: "text" }
+          - { label: "CTA Title", name: "ctaTitle", widget: "string" }
+          - { label: "CTA Description", name: "ctaDescription", widget: "text" }
+          - { label: "Page Content", name: "body", widget: "markdown" }
+  - name: "promotion"
+    label: "Promotional Banner"
+    files:
+      - label: "Banner Settings"
+        name: "promotion_banner"
+        file: "content/promotion-banner.json"
+        fields:
+          - { label: "Enabled", name: "enabled", widget: "boolean", default: false }
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Message", name: "message", widget: "text" }
+          - { label: "Start Date", name: "startsOn", widget: "datetime", required: false, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+          - { label: "End Date", name: "endsOn", widget: "datetime", required: false, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+          - { label: "CTA Label", name: "ctaLabel", widget: "string", required: false }
+          - { label: "CTA Href", name: "ctaHref", widget: "string", required: false }
+          - { label: "Image", name: "imageSrc", widget: "image", required: false }
+          - { label: "Image Alt", name: "imageAlt", widget: "string", required: false }
+

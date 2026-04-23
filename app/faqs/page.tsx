@@ -6,13 +6,14 @@ import { CTASection } from "@/components/cta-section"
 import { FAQSection } from "@/components/faq-section"
 import { InsuranceSection } from "@/components/financing/insurance-section"
 import { PaymentOptions } from "@/components/financing/payment-options"
+import { buildMetadata } from "@/lib/seo"
 import { financingFaqItems, generalFaqItems } from "@/lib/site"
 
-export const metadata: Metadata = {
-  title: "FAQs",
-  description:
-    "Read common questions about consultations, implants, periodontal care, insurance, and financing at VA EPIC in Chantilly, Virginia.",
-}
+export const metadata: Metadata = buildMetadata(
+  "FAQs",
+  "Read common questions about consultations, implants, periodontal care, insurance, and financing at VA EPIC in Chantilly, Virginia.",
+  "/faqs"
+)
 
 export default function FAQsPage() {
   return (

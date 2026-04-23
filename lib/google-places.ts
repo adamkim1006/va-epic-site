@@ -25,6 +25,14 @@ type GooglePlacesResponse = {
   rating?: number
   userRatingCount?: number
   googleMapsUri?: string
+  formattedAddress?: string
+  nationalPhoneNumber?: string
+  websiteUri?: string
+  businessStatus?: string
+  primaryTypeDisplayName?: GooglePlacesLocalizedText
+  regularOpeningHours?: {
+    weekdayDescriptions?: string[]
+  }
   reviews?: GooglePlacesReview[]
 }
 
@@ -43,6 +51,12 @@ export type GoogleReviewSummary = {
   rating?: number
   totalRatings?: number
   placeUrl?: string
+  address?: string
+  phone?: string
+  websiteUrl?: string
+  businessStatus?: string
+  primaryType?: string
+  weekdayHours?: string[]
 }
 
 function toInitials(name?: string): string {
@@ -89,7 +103,7 @@ export async function fetchGoogleReviews(): Promise<{
       "Content-Type": "application/json",
       "X-Goog-Api-Key": apiKey,
       "X-Goog-FieldMask":
-        "displayName,rating,userRatingCount,googleMapsUri,reviews",
+        "displayName,rating,userRatingCount,googleMapsUri,reviews,formattedAddress,nationalPhoneNumber,websiteUri,businessStatus,primaryTypeDisplayName,regularOpeningHours",
     },
     next: {
       revalidate: GOOGLE_REVIEWS_REVALIDATE_SECONDS,
@@ -146,6 +160,12 @@ export async function fetchGoogleReviews(): Promise<{
       rating: data.rating,
       totalRatings: data.userRatingCount,
       placeUrl: data.googleMapsUri,
+      address: data.formattedAddress,
+      phone: data.nationalPhoneNumber,
+      websiteUrl: data.websiteUri,
+      businessStatus: data.businessStatus,
+      primaryType: data.primaryTypeDisplayName?.text,
+      weekdayHours: data.regularOpeningHours?.weekdayDescriptions,
     },
   }
 }

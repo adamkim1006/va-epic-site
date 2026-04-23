@@ -21,6 +21,7 @@ export const primaryNav = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About Us" },
   { href: "/our-services", label: "Our Services" },
+  { href: "/for-patients", label: "For Patients" },
   { href: "/faqs", label: "FAQs" },
   { href: "/contact", label: "Contact" },
 ] as const

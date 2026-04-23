@@ -18,7 +18,7 @@ interface FAQSectionProps {
   title?: string
   subtitle?: string
   description?: string
-  items: FAQItem[]
+  items: readonly FAQItem[]
   variant?: "default" | "muted"
   id?: string
 }

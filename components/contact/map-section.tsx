@@ -5,7 +5,7 @@ import { Section } from "@/components/section"
 
 export function MapSection() {
   return (
-    <Section variant="muted" className="py-0 lg:py-0">
+    <Section variant="muted" className="pb-8 pt-0 lg:pb-12 lg:pt-0">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
