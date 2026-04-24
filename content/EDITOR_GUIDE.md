@@ -7,7 +7,7 @@ Doctor Park now has a browser-based editing option through Decap CMS:
 - Edit service-page markdown or the promotional banner
 - Save and publish changes without touching React files directly
 
-Important: on Vercel, Decap's GitHub login still needs an OAuth proxy configured before browser-based login will work in production.
+Important: production login is now handled by built-in Next.js routes on Vercel, but GitHub OAuth app credentials still need to be added before `/admin` will work on the live site.
 
 Doctor Park can also still update the same two main content areas directly in the repo if needed:
 
@@ -55,7 +55,34 @@ This file controls the optional site-wide promotion banner:
 - Rearranging layouts
 - Changing navigation structure
 - Updating colors, animations, or 3D scenes
-- Setting up the Decap GitHub OAuth proxy for production login
+- Changing the GitHub OAuth app or Decap production auth setup
+
+## Production login setup for Decap on Vercel
+
+The site now serves Decap's GitHub OAuth flow from these built-in routes:
+
+- `/api/decap/auth`
+- `/api/decap/callback`
+- `/api/decap/config`
+
+To finish production setup:
+
+1. In GitHub, open `Settings -> Developer settings -> OAuth Apps -> New OAuth App`.
+2. Set `Homepage URL` to your site origin, for example `https://www.vaepic.com`.
+3. Set `Authorization callback URL` to your site origin plus `/api/decap/callback`, for example `https://www.vaepic.com/api/decap/callback`.
+4. Save the app and copy the client ID and client secret.
+5. In Vercel, add these environment variables to the project:
+   - `NEXT_PUBLIC_SITE_URL=https://www.vaepic.com`
+   - `GITHUB_OAUTH_CLIENT_ID=...`
+   - `GITHUB_OAUTH_CLIENT_SECRET=...`
+6. Redeploy the site.
+7. Open `/admin` on the production site and sign in with a GitHub user that has write access to the repository.
+
+Notes:
+
+- `NEXT_PUBLIC_SITE_URL`, the GitHub OAuth app homepage URL, and the callback URL should all use the same production domain.
+- The default GitHub scope is `repo`, which works for private repos too. If the repo is public and you want a narrower scope later, a developer can adjust `DECAP_GITHUB_SCOPE`.
+- Local development can still use `local_backend: true` when running a Decap local backend separately.
 
 ## Future upgrade options
 
