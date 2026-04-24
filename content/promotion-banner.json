@@ -1,11 +1,11 @@
 {
-  "enabled": false,
-  "title": "Spring Consultation Promotion",
+  "enabled": true,
+  "ctaLabel": "Schedule Now",
   "message": "Highlight limited-time offers, educational events, or scheduling updates here. Toggle this banner on when you want it to appear site-wide.",
+  "imageSrc": "/images/dong-park-profile-id-photo.png",
+  "imageAlt": "Dr. Park portrait",
   "startsOn": "2026-04-01",
   "endsOn": "2026-05-31",
-  "ctaLabel": "Schedule Now",
-  "ctaHref": "/contact",
-  "imageSrc": "/images/dong-park-profile-id-photo.png",
-  "imageAlt": "Dr. Park portrait"
+  "title": "Spring Consultation Promotion",
+  "ctaHref": "/contact"
 }
