@@ -308,7 +308,7 @@ export function ImplantAnatomyScene() {
   return (
     <WebGLErrorBoundary fallback={<div className="h-full w-full bg-slate-50 flex items-center justify-center p-8 text-center">Interactive 3D model loading...</div>}>
       <div ref={containerRef} className="relative w-full overflow-visible">
-        <div className="sticky top-0 h-[100dvh] w-full lg:w-1/2 lg:float-right right-0 z-0 overflow-hidden pointer-events-none">
+        <div className="sticky top-0 h-[100svh] lg:h-[100dvh] w-full lg:w-1/2 lg:float-right right-0 z-0 overflow-hidden pointer-events-none">
           <Canvas 
             frameloop="demand"
             dpr={[1, 1.5]}
@@ -322,8 +322,8 @@ export function ImplantAnatomyScene() {
           <ScrollHint containerRef={containerRef} />
         </div>
 
-        <div className="relative z-10 w-full lg:w-1/2 pointer-events-none -mt-[100dvh] lg:mt-0">
-          <div className="min-h-[100dvh] flex flex-col justify-center px-4 md:px-12 pt-[40dvh] lg:pt-0">
+        <div className="relative z-10 w-full lg:w-1/2 pointer-events-none -mt-[100svh] lg:-mt-[100dvh]">
+          <div className="min-h-[100svh] lg:min-h-[100dvh] flex flex-col justify-center px-4 md:px-12 pt-[40svh] lg:pt-0">
             <div className="bg-white/90 backdrop-blur-md rounded-xl p-8 border border-slate-200 max-w-md shadow-xl pointer-events-auto transition-all hover:border-blue-400">
               <p className="text-blue-600 text-sm font-bold tracking-widest uppercase mb-2">Phase 1</p>
               <h3 className="font-display text-3xl font-semibold mb-4 text-slate-900">The Implant</h3>
@@ -333,7 +333,7 @@ export function ImplantAnatomyScene() {
             </div>
           </div>
 
-          <div className="min-h-[100dvh] flex flex-col justify-center px-4 md:px-12">
+          <div className="min-h-[100svh] lg:min-h-[100dvh] flex flex-col justify-center px-4 md:px-12">
             <div className="bg-white/90 backdrop-blur-md rounded-xl p-8 border border-slate-200 max-w-md shadow-xl pointer-events-auto">
               <p className="text-blue-600 text-sm font-bold tracking-widest uppercase mb-2">Phase 2</p>
               <h3 className="font-display text-3xl font-semibold mb-4 text-slate-900">The Abutment</h3>
@@ -343,7 +343,7 @@ export function ImplantAnatomyScene() {
             </div>
           </div>
 
-          <div className="min-h-[100dvh] flex flex-col justify-end px-4 md:px-12 pb-[10dvh] lg:justify-center lg:pb-[20dvh]">
+          <div className="min-h-[100svh] lg:min-h-[100dvh] flex flex-col justify-end px-4 md:px-12 pb-[10svh] lg:justify-center lg:pb-[20dvh]">
             <div className="bg-white/90 backdrop-blur-md rounded-xl p-8 border border-slate-200 max-w-md shadow-xl pointer-events-auto">
               <p className="text-blue-600 text-sm font-bold tracking-widest uppercase mb-2">Phase 3</p>
               <h3 className="font-display text-3xl font-semibold mb-4 text-slate-900">The Crown</h3>
