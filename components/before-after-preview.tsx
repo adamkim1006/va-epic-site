@@ -53,16 +53,22 @@ function BeforeAfterSlider({ featuredCase }: { featuredCase: BeforeAfterCase }) 
           priority={false}
         />
 
+        {/* The Clipping Mask (The Slider Handle Position) */}
         <div
-          className="absolute inset-y-0 left-0 overflow-hidden"
+          className="absolute inset-y-0 left-0 z-10 overflow-hidden pointer-events-none"
           style={{ width: `${position}%` }}
         >
-          <div className="relative h-full w-[calc(100vw)] max-w-none sm:w-full">
+          {/* THE FIX: Use a fixed width that matches the total slider area.
+              By using 'aspect-[4/3]' (or your container's ratio) and a fixed width,
+              the image will remain perfectly still while the parent clips it.
+          */}
+          <div className="relative h-full w-[var(--slider-width)] aspect-[4/3] sm:aspect-[16/10] lg:min-h-[28rem]">
             <Image
               src={featuredCase.beforeImage}
               alt={`${featuredCase.title} before`}
               fill
-              className="object-cover object-left"
+              className="object-cover"
+              style={{ objectPosition: 'center' }} 
               sizes="(max-width: 768px) 100vw, 66vw"
               priority={false}
             />
