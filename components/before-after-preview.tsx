@@ -9,44 +9,41 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Section, SectionHeader } from "@/components/section"
 
-const featuredCase = {
-  category: "All-on-X",
-  title: "Full-Arch Pano Transformation",
-  description:
-    "Compare the pre-treatment panoramic view with the restored post-treatment result using the interactive slider.",
-  beforeImage: "/images/Site Files/Lee All on 4 Before sx Pano.JPG",
-  afterImage: "/images/Site Files/Lee All on 4 after sx Pano.JPG",
+export type BeforeAfterCase = {
+  category: string
+  title: string
+  description: string
+  beforeImage: string
+  afterImage: string
 }
 
-const supportingCases = [
-  {
-    title: "Smile Preview",
-    category: "All-on-X",
-    image: "/images/Site Files/All on 4 Lee before and after.jpg",
-  },
-  {
-    title: "Pano Overview",
-    category: "Dental Implants",
-    image: "/images/Site Files/pano before and after.jpg",
-  },
-  {
-    title: "Cosmetic Reference",
-    category: "Smile Design",
-    image: "/images/Site Files/Veneers before and after.jpg",
-  },
-]
+export type BeforeAfterSupportCase = {
+  title: string
+  category: string
+  image: string
+  description: string
+  imageClassName?: string
+}
+
+interface BeforeAfterPreviewProps {
+  subtitle?: string
+  title?: string
+  description?: string
+  featuredCase: BeforeAfterCase
+  supportingCases?: BeforeAfterSupportCase[]
+}
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max)
 }
 
-function BeforeAfterSlider() {
+function BeforeAfterSlider({ featuredCase }: { featuredCase: BeforeAfterCase }) {
   const [position, setPosition] = useState(58)
   const sliderId = useId()
 
   return (
-    <div className="relative overflow-hidden rounded-[2rem] border border-border bg-card shadow-[0_24px_80px_-30px_rgba(15,23,42,0.25)]">
-      <div className="relative aspect-[4/3] sm:aspect-[16/10]">
+    <div className="relative flex h-full flex-col overflow-hidden rounded-[2rem] border border-border bg-card shadow-[0_24px_80px_-30px_rgba(15,23,42,0.25)]">
+      <div className="relative aspect-[4/3] sm:aspect-[16/10] lg:min-h-[28rem] lg:flex-1">
         <Image
           src={featuredCase.afterImage}
           alt={`${featuredCase.title} after`}
@@ -127,13 +124,19 @@ function BeforeAfterSlider() {
   )
 }
 
-export function BeforeAfterPreview() {
+export function BeforeAfterPreview({
+  subtitle = "Real Results",
+  title = "See the Transformation",
+  description = "Explore before-and-after outcomes and compare treatment changes in a more visual way.",
+  featuredCase,
+  supportingCases = [],
+}: BeforeAfterPreviewProps) {
   return (
     <Section>
       <SectionHeader
-        subtitle="Real Results"
-        title="See the Transformation"
-        description="Explore before-and-after outcomes and compare treatment changes in a more visual way."
+        subtitle={subtitle}
+        title={title}
+        description={description}
       />
 
       <motion.div
@@ -141,42 +144,43 @@ export function BeforeAfterPreview() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="mt-12 grid gap-8 lg:grid-cols-[minmax(0,1.45fr)_minmax(280px,0.8fr)]"
+        className="mt-12 grid items-start gap-8 lg:grid-cols-[minmax(0,1.45fr)_320px] lg:items-stretch"
       >
-        <BeforeAfterSlider />
+        <BeforeAfterSlider featuredCase={featuredCase} />
 
-        <div className="grid gap-5 sm:grid-cols-3 lg:grid-cols-1">
-          {supportingCases.map((item, index) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.45, delay: index * 0.08 }}
-              className="group overflow-hidden rounded-[1.5rem] border border-border bg-card shadow-[0_18px_50px_-30px_rgba(15,23,42,0.22)]"
-            >
-              <div className="relative aspect-[4/3] overflow-hidden">
+        {supportingCases.length > 0 ? (
+          <div className="grid gap-5">
+            {supportingCases.map((supportingCase, index) => (
+              <motion.div
+                key={supportingCase.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.45, delay: 0.08 + index * 0.06 }}
+                className="group overflow-hidden rounded-[1.5rem] border border-border bg-card"
+              >
+                <div className="relative aspect-[4/3] overflow-hidden">
                 <Image
-                  src={item.image}
-                  alt={item.title}
+                  src={supportingCase.image}
+                  alt={supportingCase.title}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                  sizes="(max-width: 1024px) 33vw, 24vw"
+                  className={`object-cover transition-transform duration-500 group-hover:scale-[1.03] ${supportingCase.imageClassName ?? ""}`}
+                  sizes="(max-width: 1024px) 100vw, 320px"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/10 to-transparent" />
-                <div className="absolute left-4 top-4">
-                  <Badge className="rounded-full bg-white/90 text-slate-900 hover:bg-white">{item.category}</Badge>
+                  <div className="absolute left-4 top-4">
+                    <Badge className="rounded-full bg-white/90 text-slate-900 hover:bg-white">{supportingCase.category}</Badge>
+                  </div>
                 </div>
-              </div>
-              <div className="space-y-2 px-5 py-4">
-                <h3 className="font-semibold text-slate-950">{item.title}</h3>
-                <p className="text-sm leading-6 text-slate-600">
-                  Additional before-and-after references from our treatment gallery.
-                </p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+                <div className="space-y-2 px-5 py-4">
+                  <h3 className="font-semibold text-slate-950">{supportingCase.title}</h3>
+                  <p className="text-sm leading-6 text-slate-600">
+                    {supportingCase.description}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        ) : null}
       </motion.div>
 
       <motion.div

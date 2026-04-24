@@ -21,7 +21,7 @@ gsap.registerPlugin(ScrollTrigger)
 const ASSEMBLY_HEIGHT = 2.15
 const MODEL_ASSET_VERSION = "2026-04-24-4"
 const ASSEMBLY_MODEL_URL = `/models/implant-anatomy-assembled-v3.glb?v=${MODEL_ASSET_VERSION}`
-const IMPLANT_START_Y_OFFSET = 1.1
+const IMPLANT_START_Y_OFFSET = 1.4
 const ABUTMENT_START_Y_OFFSET = 2.35
 const CROWN_START_Y_OFFSET = 1.8
 const SCENE_Y_OFFSET = -0.42
@@ -40,6 +40,79 @@ interface PreparedAssembly {
 interface TransformSnapshot {
   position: THREE.Vector3
   rotation: THREE.Euler
+}
+
+function createBoneTextures() {
+  const size = 512
+  const colorData = new Uint8Array(size * size * 4)
+  const normalData = new Uint8Array(size * size * 4)
+
+  const NUM_PORES = 20
+  const poreField = new Float32Array(size * size)
+
+  for (let p = 0; p < NUM_PORES; p++) {
+    const cx = Math.floor(Math.random() * size)
+    const cy = Math.floor(Math.random() * size)
+    const radius = 1.5 + Math.random() * 2
+
+    for (let dy = -Math.ceil(radius); dy <= Math.ceil(radius); dy++) {
+      for (let dx = -Math.ceil(radius); dx <= Math.ceil(radius); dx++) {
+        const dist = Math.sqrt(dx * dx + dy * dy)
+        if (dist > radius) continue
+        const px = (cx + dx + size) % size
+        const py = (cy + dy + size) % size
+        const depth = Math.pow(1 - dist / radius, 2)
+        poreField[py * size + px] = Math.max(poreField[py * size + px], depth)
+      }
+    }
+  }
+
+  for (let y = 0; y < size; y++) {
+    for (let x = 0; x < size; x++) {
+      const i = y * size + x
+      const pore = poreField[i]
+
+      const xi = x / size
+      const yi = y / size
+      const n1 = Math.sin(xi * 127.1 + yi * 311.7) * 43758.5453
+      const n2 = Math.sin(xi * 269.5 + yi * 183.3) * 43758.5453
+      const noise = ((n1 - Math.floor(n1)) + (n2 - Math.floor(n2))) / 2
+      const intensity = noise * 0.6 + 0.4
+
+      colorData[i * 4]     = Math.max(0, 242 - intensity * 12 - pore * 55)
+      colorData[i * 4 + 1] = Math.max(0, 234 - intensity * 18 - pore * 60)
+      colorData[i * 4 + 2] = Math.max(0, 220 - intensity * 22 - pore * 55)
+      colorData[i * 4 + 3] = 255
+
+      const right = poreField[y * size + Math.min(x + 1, size - 1)]
+      const left  = poreField[y * size + Math.max(x - 1, 0)]
+      const down  = poreField[Math.min(y + 1, size - 1) * size + x]
+      const up    = poreField[Math.max(y - 1, 0) * size + x]
+      const strength = 6.0
+      const nx = (left - right) * strength
+      const ny = (up - down) * strength
+      const nz = 1.0
+      const len = Math.sqrt(nx * nx + ny * ny + nz * nz)
+
+      normalData[i * 4]     = Math.floor(((nx / len) * 0.5 + 0.5) * 255)
+      normalData[i * 4 + 1] = Math.floor(((ny / len) * 0.5 + 0.5) * 255)
+      normalData[i * 4 + 2] = Math.floor(((nz / len) * 0.5 + 0.5) * 255)
+      normalData[i * 4 + 3] = 255
+    }
+  }
+
+  const colorMap = new THREE.DataTexture(colorData, size, size, THREE.RGBAFormat)
+  colorMap.colorSpace = THREE.SRGBColorSpace
+  colorMap.wrapS = colorMap.wrapT = THREE.RepeatWrapping
+  colorMap.repeat.set(2, 1.6)
+  colorMap.needsUpdate = true
+
+  const normalMap = new THREE.DataTexture(normalData, size, size, THREE.RGBAFormat)
+  normalMap.wrapS = normalMap.wrapT = THREE.RepeatWrapping
+  normalMap.repeat.set(2, 1.6)
+  normalMap.needsUpdate = true
+
+  return { colorMap, normalMap }
 }
 
 function applyExplodedPose(parts: Omit<PreparedAssembly, "scene">) {
@@ -80,7 +153,7 @@ function createAssemblyMaterial(name: string) {
       color: "#f8fafc",
       roughness: 0.08,
       clearcoat: 1,
-      transmission: 0.08,
+      transmission: 0.005,
       thickness: 0.8,
     })
   }
@@ -105,6 +178,52 @@ function createAssemblyMaterial(name: string) {
 function InnerScene({ scrollContainerRef }: InnerSceneProps) {
   const { camera } = useThree()
   const assemblyGltf = useGLTF(ASSEMBLY_MODEL_URL)
+  const boneTextures = useMemo(() => createBoneTextures(), [])
+
+  // Bone geometry with top vertices displaced for an organic, uneven tissue interface.
+  // Only vertices above y=0.4 are displaced so sides and bottom stay flat.
+const boneGeometry = useMemo(() => {
+  // Increased subdivisions to 32 for smooth organic curves
+  const geo = new THREE.BoxGeometry(1.65, 1.08, 1.1, 32, 4, 32)
+  const pos = geo.attributes.position
+
+  for (let i = 0; i < pos.count; i++) {
+    const x = pos.getX(i)
+    const y = pos.getY(i)
+    const z = pos.getZ(i)
+
+    // Only modify top vertices (above the midpoint of the box)
+    if (y > 0.4) {
+      // Normalize coordinates to -1 to 1 range for easier math
+      const nx = x / (1.65 / 2) 
+      const nz = z / (1.1 / 2)
+      const distFromCenter = Math.sqrt(nx * nx + nz * nz)
+
+      // 1. Central Scallop Peak: Bone rises in the center where the implant is placed
+      // This mimics the 'high' bone point at the interproximal area of a healthy tooth
+      const centerPeak = Math.max(0, 1 - distFromCenter * 1.5) * 0.15
+
+      // 2. Side Dips: Bone slopes down toward the edges of the section
+      // This creates the 'valley' between the peaks of adjacent teeth
+      const sideSlope = (Math.abs(nx)) * -0.05
+
+      // 3. Facial/Lingual Dip: Natural U-shape dip on the front and back faces
+      // Bone is always lower on the cheek-side than on the interproximal sides
+      const facialDip = Math.pow(Math.abs(nz), 2) * -0.12
+
+      // 4. Organic Micro-texture: Prevents the math from looking too 'perfect'
+      const noise = (Math.sin(x * 20 + z * 15) + Math.cos(x * 10 - z * 8)) * 0.006
+
+      // Apply cumulative transformations
+      pos.setY(i, y + centerPeak + sideSlope + facialDip + noise)
+    }
+  }
+
+  pos.needsUpdate = true
+  // Recalculate normals so lighting reflects off the new hills and valleys
+  geo.computeVertexNormals() 
+  return geo
+}, [])
 
   const stageRef = useRef<THREE.Group>(null)
   const tissueCoverRef = useRef<THREE.Mesh>(null)
@@ -182,7 +301,7 @@ function InnerScene({ scrollContainerRef }: InnerSceneProps) {
     gsap.set(camera.position, { x: 0.24, y: 1.1, z: 5.95 })
     gsap.set(cameraTargetRef.current.position, { x: 0, y: 1.04, z: 0 })
     if (tissueMaterial) {
-      gsap.set(tissueMaterial, { opacity: 0 })
+      gsap.set(tissueMaterial, { opacity: 0.2 })
     }
 
     const tl = gsap.timeline({
@@ -196,12 +315,12 @@ function InnerScene({ scrollContainerRef }: InnerSceneProps) {
 
     tl.to(
       assembly.implant.position,
-      { x: implantBasePosition.x, y: implantBasePosition.y, z: implantBasePosition.z, duration: 1, ease: "power2.inOut" },
+      { x: implantBasePosition.x, y: implantBasePosition.y, z: implantBasePosition.z, duration: 1, ease: "power3.out" },
       0
     )
     tl.to(
       assembly.implant.rotation,
-      { x: implantBaseRotation.x, y: implantBaseRotation.y + Math.PI * 5.2, z: implantBaseRotation.z, duration: 1 },
+      { x: implantBaseRotation.x, y: implantBaseRotation.y + Math.PI * 5.2, z: implantBaseRotation.z, duration: 1, ease: "power3.out" },
       0
     )
     tl.to(
@@ -247,7 +366,7 @@ function InnerScene({ scrollContainerRef }: InnerSceneProps) {
     if (tissueMaterial) {
       tl.to(
         tissueMaterial,
-        { opacity: 0.96, duration: 0.45, ease: "power1.out" },
+        { opacity: 1, duration: 0.45, ease: "power1.out" },
         2.28
       )
     }
@@ -268,32 +387,37 @@ function InnerScene({ scrollContainerRef }: InnerSceneProps) {
       </group>
       <group ref={cameraTargetRef} />
 
+      {/* Tissue cover — sits above bone layer, fades in on scroll */}
       <RoundedBox
         ref={tissueCoverRef}
-        args={[1.56, 1.14, 1.04]}
+        args={[1.70, 1.14, 1.04]}
         radius={0.16}
         smoothness={6}
         position={[0, 0.85 + SCENE_Y_OFFSET, 0]}
       >
         <meshPhysicalMaterial
-          color="#d98999"
-          roughness={0.96}
-          clearcoat={0.02}
-          sheen={0.7}
-          sheenColor="#f6c0ca"
+          color="#c9687d"
+          emissive="#8a3344"
+          emissiveIntensity={0.06}
+          roughness={0.74}
+          clearcoat={0.2}
+          clearcoatRoughness={0.6}
+          sheen={1}
+          sheenColor="#f7c2cb"
           transparent
           opacity={0}
         />
       </RoundedBox>
 
-      <mesh position={[0, 0.34 + SCENE_Y_OFFSET, 0]}>
-        <boxGeometry args={[1.65, 1.34, 1.1]} />
+      {/* Cortical bone — displaced top vertices create organic tissue interface */}
+      <mesh geometry={boneGeometry} position={[0, 0.5 + SCENE_Y_OFFSET, 0]} scale={[1, 0.88, 1]}>
         <meshPhysicalMaterial
-          color="#f7f3ee"
-          transmission={0.15}
-          thickness={2}
-          roughness={0.42}
-          clearcoat={0.05}
+          color="#d4c4a8"
+          map={boneTextures.colorMap}
+          normalMap={boneTextures.normalMap}
+          normalScale={new THREE.Vector2(1.4, 1.4)}
+          roughness={0.92}
+          clearcoat={0}
         />
       </mesh>
 

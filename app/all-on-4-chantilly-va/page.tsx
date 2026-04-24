@@ -11,6 +11,37 @@ import { AllOnXScene } from "@/components/three/all-on-x-scene"
 import { getServicePageContent } from "@/lib/service-page-content"
 import { buildMetadata } from "@/lib/seo"
 
+const allOnXBeforeAfterContent = {
+  subtitle: "Full-Arch Results",
+  title: "Compare an All-on-X Transformation",
+  description:
+    "See how a full-arch case looks before treatment and after restoration, with a focused pano comparison and one supporting smile reference.",
+  featuredCase: {
+    category: "All-on-X",
+    title: "Full-Arch Pano Transformation",
+    description:
+      "Compare the pre-treatment panoramic view with the restored post-treatment result using the interactive slider.",
+    beforeImage: "/images/Site Files/Lee All on 4 Before sx Pano.JPG",
+    afterImage: "/images/Site Files/Lee All on 4 after sx Pano.JPG",
+  },
+  supportingCases: [
+    {
+      category: "All-on-X",
+      title: "Smile Preview",
+      image: "/images/Site Files/All on 4 Lee before and after.jpg",
+      description:
+        "A supporting before-and-after smile view that complements the featured panoramic comparison.",
+    },
+    {
+      category: "Smile Design",
+      title: "Cosmetic Reference",
+      image: "/images/Site Files/Veneers before and after.jpg",
+      description:
+        "An additional visual reference that keeps the side column lively without repeating the pano comparison.",
+    },
+  ],
+}
+
 export async function generateMetadata(): Promise<Metadata> {
   const content = await getServicePageContent("all-on-4-chantilly-va")
   return buildMetadata(
@@ -50,7 +81,7 @@ export default async function AllOnXPage() {
       </Section>
 
         <ServiceMarkdownSections sections={content.sections} />
-        <BeforeAfterPreview />
+        <BeforeAfterPreview {...allOnXBeforeAfterContent} />
         <FAQSection
           items={content.faqs}
           title={content.faqTitle}
