@@ -19,8 +19,8 @@ import {
 gsap.registerPlugin(ScrollTrigger)
 
 const ASSEMBLY_HEIGHT = 2.15
-const MODEL_ASSET_VERSION = "2026-04-24-2"
-const ASSEMBLY_MODEL_URL = `/models/implant-anatomy-assembled.glb?v=${MODEL_ASSET_VERSION}`
+const MODEL_ASSET_VERSION = "2026-04-24-4"
+const ASSEMBLY_MODEL_URL = `/models/implant-anatomy-assembled-v3.glb?v=${MODEL_ASSET_VERSION}`
 const IMPLANT_START_Y_OFFSET = 1.1
 const ABUTMENT_START_Y_OFFSET = 2.35
 const CROWN_START_Y_OFFSET = 1.8
@@ -35,6 +35,41 @@ interface PreparedAssembly {
   implant: THREE.Object3D
   abutment: THREE.Object3D
   crown: THREE.Object3D
+}
+
+interface TransformSnapshot {
+  position: THREE.Vector3
+  rotation: THREE.Euler
+}
+
+function applyExplodedPose(parts: Omit<PreparedAssembly, "scene">) {
+  parts.implant.position.x -= 0.08
+  parts.implant.position.y += IMPLANT_START_Y_OFFSET
+  parts.implant.position.z += 0.04
+  parts.implant.rotation.x -= 0.42
+  parts.implant.rotation.y -= 0.45
+  parts.implant.rotation.z += 0.04
+
+  parts.abutment.position.x += 0.18
+  parts.abutment.position.y += ABUTMENT_START_Y_OFFSET
+  parts.abutment.position.z += 0.05
+  parts.abutment.rotation.x += 0.26
+  parts.abutment.rotation.y += 0.58
+  parts.abutment.rotation.z -= 0.2
+
+  parts.crown.position.x -= 0.1
+  parts.crown.position.y += CROWN_START_Y_OFFSET
+  parts.crown.position.z += 0.03
+  parts.crown.rotation.x -= 0.06
+  parts.crown.rotation.y -= 0.14
+  parts.crown.rotation.z += 0.03
+}
+
+function snapshotTransform(object: THREE.Object3D): TransformSnapshot {
+  return {
+    position: object.position.clone(),
+    rotation: object.rotation.clone(),
+  }
 }
 
 function createAssemblyMaterial(name: string) {
@@ -103,6 +138,12 @@ function InnerScene({ scrollContainerRef }: InnerSceneProps) {
       throw new Error("Implant anatomy assembly is missing named nodes.")
     }
 
+    implant.userData.assembledTransform = snapshotTransform(implant)
+    abutment.userData.assembledTransform = snapshotTransform(abutment)
+    crown.userData.assembledTransform = snapshotTransform(crown)
+
+    applyExplodedPose({ implant, abutment, crown })
+
     return {
       scene: clone,
       implant,
@@ -116,12 +157,20 @@ function InnerScene({ scrollContainerRef }: InnerSceneProps) {
       return
     }
 
-    const implantBasePosition = assembly.implant.position.clone()
-    const abutmentBasePosition = assembly.abutment.position.clone()
-    const crownBasePosition = assembly.crown.position.clone()
-    const implantBaseRotation = assembly.implant.rotation.clone()
-    const abutmentBaseRotation = assembly.abutment.rotation.clone()
-    const crownBaseRotation = assembly.crown.rotation.clone()
+    const implantAssembled = assembly.implant.userData.assembledTransform as TransformSnapshot | undefined
+    const abutmentAssembled = assembly.abutment.userData.assembledTransform as TransformSnapshot | undefined
+    const crownAssembled = assembly.crown.userData.assembledTransform as TransformSnapshot | undefined
+
+    if (!implantAssembled || !abutmentAssembled || !crownAssembled) {
+      return
+    }
+
+    const implantBasePosition = implantAssembled.position
+    const abutmentBasePosition = abutmentAssembled.position
+    const crownBasePosition = crownAssembled.position
+    const implantBaseRotation = implantAssembled.rotation
+    const abutmentBaseRotation = abutmentAssembled.rotation
+    const crownBaseRotation = crownAssembled.rotation
     const tissueMaterial = tissueCoverRef.current?.material as THREE.MeshPhysicalMaterial | undefined
 
     gsap.set(assembly.implant.position, { x: implantBasePosition.x - 0.08, y: implantBasePosition.y + IMPLANT_START_Y_OFFSET, z: implantBasePosition.z + 0.04 })
@@ -224,7 +273,7 @@ function InnerScene({ scrollContainerRef }: InnerSceneProps) {
         args={[1.56, 1.14, 1.04]}
         radius={0.16}
         smoothness={6}
-        position={[0, 0.9 + SCENE_Y_OFFSET, 0]}
+        position={[0, 0.85 + SCENE_Y_OFFSET, 0]}
       >
         <meshPhysicalMaterial
           color="#d98999"
@@ -233,7 +282,7 @@ function InnerScene({ scrollContainerRef }: InnerSceneProps) {
           sheen={0.7}
           sheenColor="#f6c0ca"
           transparent
-          opacity={0.2}
+          opacity={0}
         />
       </RoundedBox>
 
