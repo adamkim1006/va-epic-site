@@ -322,7 +322,7 @@ export function ImplantAnatomyScene() {
           <ScrollHint containerRef={containerRef} />
         </div>
 
-        <div className="relative z-10 w-full lg:w-1/2 pointer-events-none -mt-[100svh] lg:-mt-[100dvh]">
+        <div className="relative z-10 w-full lg:w-1/2 pointer-events-none -mt-[100svh] lg:mt-0">
           <div className="min-h-[100svh] lg:min-h-[100dvh] flex flex-col justify-center px-4 md:px-12 pt-[40svh] lg:pt-0">
             <div className="bg-white/90 backdrop-blur-md rounded-xl p-8 border border-slate-200 max-w-md shadow-xl pointer-events-auto transition-all hover:border-blue-400">
               <p className="text-blue-600 text-sm font-bold tracking-widest uppercase mb-2">Phase 1</p>
