@@ -2,7 +2,7 @@
 
 import { useMemo, useRef, Suspense } from "react"
 import { Canvas, useFrame, useThree } from "@react-three/fiber"
-import { ContactShadows, Environment, PerspectiveCamera, useGLTF } from "@react-three/drei"
+import { ContactShadows, Environment, PerspectiveCamera, RoundedBox, useGLTF } from "@react-three/drei"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useGSAP } from "@gsap/react"
@@ -11,7 +11,6 @@ import {
   cloneScene,
   GSAPInvalidator,
   normalizeSceneToHeight,
-  replaceSceneMaterials,
   SceneLoader,
   ScrollHint,
   WebGLErrorBoundary,
@@ -19,102 +18,123 @@ import {
 
 gsap.registerPlugin(ScrollTrigger)
 
+const ASSEMBLY_HEIGHT = 2.15
+const MODEL_ASSET_VERSION = "2026-04-24-2"
+const ASSEMBLY_MODEL_URL = `/models/implant-anatomy-assembled.glb?v=${MODEL_ASSET_VERSION}`
+const IMPLANT_START_Y_OFFSET = 1.1
+const ABUTMENT_START_Y_OFFSET = 2.35
+const CROWN_START_Y_OFFSET = 1.8
+const SCENE_Y_OFFSET = -0.42
+
 interface InnerSceneProps {
   scrollContainerRef: React.RefObject<HTMLDivElement | null>
 }
 
+interface PreparedAssembly {
+  scene: THREE.Object3D
+  implant: THREE.Object3D
+  abutment: THREE.Object3D
+  crown: THREE.Object3D
+}
+
+function createAssemblyMaterial(name: string) {
+  const lowerName = name.toLowerCase()
+
+  if (lowerName.includes("crown")) {
+    return new THREE.MeshPhysicalMaterial({
+      color: "#f8fafc",
+      roughness: 0.08,
+      clearcoat: 1,
+      transmission: 0.08,
+      thickness: 0.8,
+    })
+  }
+
+  if (lowerName.includes("abutment")) {
+    return new THREE.MeshPhysicalMaterial({
+      color: "#a5b3c2",
+      metalness: 1,
+      roughness: 0.18,
+      clearcoat: 0.24,
+    })
+  }
+
+  return new THREE.MeshPhysicalMaterial({
+    color: "#98a3b3",
+    metalness: 1,
+    roughness: 0.18,
+    clearcoat: 0.2,
+  })
+}
+
 function InnerScene({ scrollContainerRef }: InnerSceneProps) {
   const { camera } = useThree()
-  const screwGltf = useGLTF("/models/implant-screw.glb")
-  const abutmentGltf = useGLTF("/models/implant-abutment.glb")
-  const crownGltf = useGLTF("/models/dental-crown.glb")
+  const assemblyGltf = useGLTF(ASSEMBLY_MODEL_URL)
 
   const stageRef = useRef<THREE.Group>(null)
-  const implantRef = useRef<THREE.Group>(null)
-  const abutmentRef = useRef<THREE.Group>(null)
-  const crownRef = useRef<THREE.Group>(null)
+  const tissueCoverRef = useRef<THREE.Mesh>(null)
   const cameraTargetRef = useRef<THREE.Group>(null)
   const lookAtTarget = useMemo(() => new THREE.Vector3(), [])
 
-  useFrame((_, delta) => {
-    if (stageRef.current) {
-      stageRef.current.rotation.y += delta * 0.06
-    }
-
+  useFrame(() => {
     if (cameraTargetRef.current) {
       camera.lookAt(cameraTargetRef.current.getWorldPosition(lookAtTarget))
     }
   })
 
-  const screwModel = useMemo(() => {
-    const clone = cloneScene(screwGltf.scene)
-    replaceSceneMaterials(
-      clone,
-      () =>
-        new THREE.MeshPhysicalMaterial({
-          color: "#98a3b3",
-          metalness: 1,
-          roughness: 0.18,
-          clearcoat: 0.2,
-        })
-    )
-    normalizeSceneToHeight(clone, 1.35)
-    return clone
-  }, [screwGltf.scene])
+  const assembly = useMemo<PreparedAssembly>(() => {
+    const clone = cloneScene(assemblyGltf.scene)
 
-  const abutmentModel = useMemo(() => {
-    const clone = cloneScene(abutmentGltf.scene)
-    replaceSceneMaterials(
-      clone,
-      () =>
-        new THREE.MeshPhysicalMaterial({
-          color: "#a5b3c2",
-          metalness: 1,
-          roughness: 0.18,
-          clearcoat: 0.24,
-        })
-    )
-    normalizeSceneToHeight(clone, 0.48)
-    return clone
-  }, [abutmentGltf.scene])
+    clone.traverse((child) => {
+      if (!(child instanceof THREE.Mesh)) return
 
-  const crownModel = useMemo(() => {
-    const clone = cloneScene(crownGltf.scene)
-    replaceSceneMaterials(
-      clone,
-      () =>
-        new THREE.MeshPhysicalMaterial({
-          color: "#f8fafc",
-          roughness: 0.08,
-          clearcoat: 1,
-          transmission: 0.08,
-          thickness: 0.8,
-        })
-    )
-    normalizeSceneToHeight(clone, 0.82)
-    clone.position.y = 0.08
-    return clone
-  }, [crownGltf.scene])
+      child.castShadow = true
+      child.receiveShadow = true
+      child.material = createAssemblyMaterial(child.name)
+    })
+
+    normalizeSceneToHeight(clone, ASSEMBLY_HEIGHT)
+
+    const implant = clone.getObjectByName("implant-screw")
+    const abutment = clone.getObjectByName("implant-abutment")
+    const crown = clone.getObjectByName("dental-crown")
+
+    if (!implant || !abutment || !crown) {
+      throw new Error("Implant anatomy assembly is missing named nodes.")
+    }
+
+    return {
+      scene: clone,
+      implant,
+      abutment,
+      crown,
+    }
+  }, [assemblyGltf.scene])
 
   useGSAP(() => {
-    if (
-      !scrollContainerRef.current ||
-      !implantRef.current ||
-      !abutmentRef.current ||
-      !crownRef.current ||
-      !cameraTargetRef.current
-    ) {
+    if (!scrollContainerRef.current || !cameraTargetRef.current) {
       return
     }
 
-    gsap.set(implantRef.current.position, { x: -0.04, y: 1.6, z: 0 })
-    gsap.set(implantRef.current.rotation, { x: -0.35, y: -0.3, z: 0 })
-    gsap.set(abutmentRef.current.position, { x: 0, y: 2.05, z: 0.02 })
-    gsap.set(abutmentRef.current.rotation, { x: 0.1, y: 0.35, z: 0 })
-    gsap.set(crownRef.current.position, { x: 0.02, y: 2.65, z: 0.04 })
-    gsap.set(crownRef.current.rotation, { x: -0.05, y: 0.2, z: 0 })
-    gsap.set(camera.position, { x: 0.35, y: 0.9, z: 4.8 })
-    gsap.set(cameraTargetRef.current.position, { x: 0.04, y: 0.8, z: 0 })
+    const implantBasePosition = assembly.implant.position.clone()
+    const abutmentBasePosition = assembly.abutment.position.clone()
+    const crownBasePosition = assembly.crown.position.clone()
+    const implantBaseRotation = assembly.implant.rotation.clone()
+    const abutmentBaseRotation = assembly.abutment.rotation.clone()
+    const crownBaseRotation = assembly.crown.rotation.clone()
+    const tissueMaterial = tissueCoverRef.current?.material as THREE.MeshPhysicalMaterial | undefined
+
+    gsap.set(assembly.implant.position, { x: implantBasePosition.x - 0.08, y: implantBasePosition.y + IMPLANT_START_Y_OFFSET, z: implantBasePosition.z + 0.04 })
+    gsap.set(assembly.implant.rotation, { x: implantBaseRotation.x - 0.42, y: implantBaseRotation.y - 0.45, z: implantBaseRotation.z + 0.04 })
+    gsap.set(assembly.abutment.position, { x: abutmentBasePosition.x + 0.18, y: abutmentBasePosition.y + ABUTMENT_START_Y_OFFSET, z: abutmentBasePosition.z + 0.05 })
+    gsap.set(assembly.abutment.rotation, { x: abutmentBaseRotation.x + 0.26, y: abutmentBaseRotation.y + 0.58, z: abutmentBaseRotation.z - 0.2 })
+    gsap.set(assembly.crown.position, { x: crownBasePosition.x - 0.1, y: crownBasePosition.y + CROWN_START_Y_OFFSET, z: crownBasePosition.z + 0.03 })
+    gsap.set(assembly.crown.rotation, { x: crownBaseRotation.x - 0.06, y: crownBaseRotation.y - 0.14, z: crownBaseRotation.z + 0.03 })
+    gsap.set(camera.position, { x: 0.24, y: 1.1, z: 5.95 })
+    gsap.set(cameraTargetRef.current.position, { x: 0, y: 1.04, z: 0 })
+    if (tissueMaterial) {
+      gsap.set(tissueMaterial, { opacity: 0 })
+    }
 
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -126,46 +146,63 @@ function InnerScene({ scrollContainerRef }: InnerSceneProps) {
     })
 
     tl.to(
-      implantRef.current.position,
-      { x: 0, y: 0, z: 0, duration: 1, ease: "power2.inOut" },
+      assembly.implant.position,
+      { x: implantBasePosition.x, y: implantBasePosition.y, z: implantBasePosition.z, duration: 1, ease: "power2.inOut" },
       0
     )
     tl.to(
-      implantRef.current.rotation,
-      { x: 0, y: Math.PI * 1.4, z: 0, duration: 1 },
+      assembly.implant.rotation,
+      { x: implantBaseRotation.x, y: implantBaseRotation.y + Math.PI * 2.6, z: implantBaseRotation.z, duration: 1 },
       0
     )
     tl.to(
-      abutmentRef.current.position,
-      { x: 0, y: 0.95, z: 0.02, duration: 0.9, ease: "back.out(1.1)" },
+      assembly.abutment.position,
+      { x: abutmentBasePosition.x, y: abutmentBasePosition.y, z: abutmentBasePosition.z, duration: 0.8, ease: "power3.out" },
       0.8
     )
     tl.to(
-      crownRef.current.position,
-      { x: 0, y: 1.52, z: 0.03, duration: 0.9, ease: "back.out(1.2)" },
-      1.45
+      assembly.abutment.rotation,
+      { x: abutmentBaseRotation.x, y: abutmentBaseRotation.y, z: abutmentBaseRotation.z, duration: 0.8, ease: "power3.out" },
+      0.8
+    )
+    tl.to(
+      assembly.crown.position,
+      { x: crownBasePosition.x, y: crownBasePosition.y, z: crownBasePosition.z, duration: 0.8, ease: "power3.out" },
+      1.4
+    )
+    tl.to(
+      assembly.crown.rotation,
+      { x: crownBaseRotation.x, y: crownBaseRotation.y, z: crownBaseRotation.z, duration: 0.8, ease: "power3.out" },
+      1.4
     )
     tl.to(
       camera.position,
-      { x: 0.06, y: 1.0, z: 4.1, duration: 2.2, ease: "power2.inOut" },
+      { x: 0.06, y: 1.0, z: 4.8, duration: 2.2, ease: "power2.inOut" },
       0
     )
     tl.to(
       cameraTargetRef.current.position,
-      { x: 0, y: 1.05, z: 0, duration: 2.2, ease: "power2.inOut" },
+      { x: 0, y: 1.02, z: 0, duration: 2.2, ease: "power2.inOut" },
       0
     )
     tl.to(
       camera,
       {
-        fov: 28,
+        fov: 32,
         duration: 2.2,
         ease: "power2.inOut",
         onUpdate: () => camera.updateProjectionMatrix(),
       },
       0
     )
-  }, { dependencies: [scrollContainerRef] })
+    if (tissueMaterial) {
+      tl.to(
+        tissueMaterial,
+        { opacity: 0.96, duration: 0.45, ease: "power1.out" },
+        2.28
+      )
+    }
+  }, { dependencies: [assembly, scrollContainerRef] })
 
   return (
     <>
@@ -177,15 +214,28 @@ function InnerScene({ scrollContainerRef }: InnerSceneProps) {
       <pointLight position={[-4, 2, 5]} intensity={1.1} color="#7dd3fc" />
       <pointLight position={[3, 8, -2]} intensity={0.8} color="#f8fafc" />
 
-      <group ref={stageRef}>
-        <primitive object={screwModel} ref={implantRef} />
-        <primitive object={abutmentModel} ref={abutmentRef} />
-        <primitive object={crownModel} ref={crownRef} />
+      <group ref={stageRef} position={[0, SCENE_Y_OFFSET, 0]}>
+        <primitive object={assembly.scene} />
       </group>
       <group ref={cameraTargetRef} />
 
-      <mesh position={[0, -0.7, 0]}>
-        <boxGeometry args={[1.65, 0.92, 1.1]} />
+      <RoundedBox
+        ref={tissueCoverRef}
+        args={[1.56, 1.14, 1.04]}
+        radius={0.16}
+        smoothness={6}
+        position={[0, 0.9 + SCENE_Y_OFFSET, 0]}
+      >
+        <meshStandardMaterial
+          color="#e69aa7"
+          roughness={0.92}
+          transparent
+          opacity={0.2}
+        />
+      </RoundedBox>
+
+      <mesh position={[0, 0.06 + SCENE_Y_OFFSET, 0]}>
+        <boxGeometry args={[1.65, 1.16, 1.1]} />
         <meshPhysicalMaterial
           color="#f7f3ee"
           transmission={0.15}
@@ -195,7 +245,7 @@ function InnerScene({ scrollContainerRef }: InnerSceneProps) {
         />
       </mesh>
 
-      <ContactShadows position={[0, -1.18, 0]} opacity={0.35} scale={3.2} blur={2} frames={1} />
+      <ContactShadows position={[0, -1.18 + SCENE_Y_OFFSET, 0]} opacity={0.35} scale={3.2} blur={2} frames={1} />
     </>
   )
 }
@@ -212,7 +262,7 @@ export function ImplantAnatomyScene() {
             dpr={[1, 1.5]}
             gl={{ antialias: true, powerPreference: "high-performance", toneMapping: THREE.LinearToneMapping }}
           >
-            <PerspectiveCamera makeDefault position={[0, 0.9, 4.8]} fov={32} />
+            <PerspectiveCamera makeDefault position={[0.06, 1, 4.8]} fov={32} />
             <Suspense fallback={<SceneLoader />}>
               <InnerScene scrollContainerRef={containerRef} />
             </Suspense>
@@ -258,6 +308,4 @@ export function ImplantAnatomyScene() {
 }
 
 // Preload assets for instant feel
-useGLTF.preload("/models/implant-screw.glb")
-useGLTF.preload("/models/implant-abutment.glb")
-useGLTF.preload("/models/dental-crown.glb")
+useGLTF.preload(ASSEMBLY_MODEL_URL)
