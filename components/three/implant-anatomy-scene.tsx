@@ -221,10 +221,10 @@ function InnerScene({ scrollContainerRef }: InnerSceneProps) {
 
       <RoundedBox
         ref={tissueCoverRef}
-        args={[1.56, 0.92, 1.04]}
-        radius={0.22}
-        smoothness={8}
-        position={[0, 0.46 + SCENE_Y_OFFSET, 0]}
+        args={[1.56, 1.14, 1.04]}
+        radius={0.16}
+        smoothness={6}
+        position={[0, 0.9 + SCENE_Y_OFFSET, 0]}
       >
         <meshPhysicalMaterial
           color="#d98999"
