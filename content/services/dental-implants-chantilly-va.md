@@ -4,7 +4,7 @@ metaDescription: Expert dental implant planning and placement at VA EPIC in Chan
 heroSubtitle: Dental Implants
 heroTitle: Dental Implants in Chantilly, VA
 heroDescription: Dental implants offer a stable, long-term way to replace missing teeth. At VA EPIC, treatment is planned carefully around your bone support, bite, esthetic goals, and overall oral health.
-heroBackgroundImageSrc: /images/Site%20Files/dental-implant-anatomy.jpg
+heroBackgroundImageSrc: /images/Site%20Files/IMG_0299.jpg
 heroBackgroundPosition: center
 visualSectionSubtitle: What Are Dental Implants?
 visualSectionTitle: The Permanent Solution for Missing Teeth
