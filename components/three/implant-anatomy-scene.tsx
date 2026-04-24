@@ -221,14 +221,17 @@ function InnerScene({ scrollContainerRef }: InnerSceneProps) {
 
       <RoundedBox
         ref={tissueCoverRef}
-        args={[1.56, 1.14, 1.04]}
-        radius={0.16}
-        smoothness={6}
-        position={[0, 0.9 + SCENE_Y_OFFSET, 0]}
+        args={[1.56, 0.92, 1.04]}
+        radius={0.22}
+        smoothness={8}
+        position={[0, 0.46 + SCENE_Y_OFFSET, 0]}
       >
-        <meshStandardMaterial
-          color="#e69aa7"
-          roughness={0.92}
+        <meshPhysicalMaterial
+          color="#d98999"
+          roughness={0.96}
+          clearcoat={0.02}
+          sheen={0.7}
+          sheenColor="#f6c0ca"
           transparent
           opacity={0.2}
         />
@@ -291,7 +294,7 @@ export function ImplantAnatomyScene() {
             </div>
           </div>
 
-          <div className="min-h-[100dvh] flex flex-col justify-center px-4 md:px-12 pb-[20dvh]">
+          <div className="min-h-[100dvh] flex flex-col justify-end px-4 md:px-12 pb-[10dvh] lg:justify-center lg:pb-[20dvh]">
             <div className="bg-white/90 backdrop-blur-md rounded-xl p-8 border border-slate-200 max-w-md shadow-xl pointer-events-auto">
               <p className="text-blue-600 text-sm font-bold tracking-widest uppercase mb-2">Phase 3</p>
               <h3 className="font-display text-3xl font-semibold mb-4 text-slate-900">The Crown</h3>
