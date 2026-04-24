@@ -201,7 +201,7 @@ function InnerScene({ scrollContainerRef }: InnerSceneProps) {
     )
     tl.to(
       assembly.implant.rotation,
-      { x: implantBaseRotation.x, y: implantBaseRotation.y + Math.PI * 2.6, z: implantBaseRotation.z, duration: 1 },
+      { x: implantBaseRotation.x, y: implantBaseRotation.y + Math.PI * 5.2, z: implantBaseRotation.z, duration: 1 },
       0
     )
     tl.to(
@@ -286,8 +286,8 @@ function InnerScene({ scrollContainerRef }: InnerSceneProps) {
         />
       </RoundedBox>
 
-      <mesh position={[0, 0.06 + SCENE_Y_OFFSET, 0]}>
-        <boxGeometry args={[1.65, 1.16, 1.1]} />
+      <mesh position={[0, 0.34 + SCENE_Y_OFFSET, 0]}>
+        <boxGeometry args={[1.65, 1.34, 1.1]} />
         <meshPhysicalMaterial
           color="#f7f3ee"
           transmission={0.15}
@@ -323,8 +323,8 @@ export function ImplantAnatomyScene() {
         </div>
 
         <div className="relative z-10 w-full lg:w-1/2 pointer-events-none -mt-[100svh] lg:mt-0">
-          <div className="min-h-[100svh] lg:min-h-[100dvh] flex flex-col justify-center px-4 md:px-12 pt-[40svh] lg:pt-0">
-            <div className="bg-white/90 backdrop-blur-md rounded-xl p-8 border border-slate-200 max-w-md shadow-xl pointer-events-auto transition-all hover:border-blue-400">
+          <div className="min-h-[100svh] lg:min-h-[100dvh] flex flex-col justify-end lg:justify-center px-4 md:px-12 pb-[12svh] pt-[40svh] lg:pb-0 lg:pt-0">
+            <div className="bg-white/78 lg:bg-white/90 backdrop-blur-md rounded-xl p-6 lg:p-8 border border-slate-200 max-w-[17rem] lg:max-w-md shadow-xl pointer-events-auto transition-all hover:border-blue-400 mr-auto">
               <p className="text-blue-600 text-sm font-bold tracking-widest uppercase mb-2">Phase 1</p>
               <h3 className="font-display text-3xl font-semibold mb-4 text-slate-900">The Implant</h3>
               <p className="text-slate-600 leading-relaxed">
@@ -333,8 +333,8 @@ export function ImplantAnatomyScene() {
             </div>
           </div>
 
-          <div className="min-h-[100svh] lg:min-h-[100dvh] flex flex-col justify-center px-4 md:px-12">
-            <div className="bg-white/90 backdrop-blur-md rounded-xl p-8 border border-slate-200 max-w-md shadow-xl pointer-events-auto">
+          <div className="min-h-[100svh] lg:min-h-[100dvh] flex flex-col justify-end lg:justify-center px-4 md:px-12 pb-[12svh] lg:pb-0">
+            <div className="bg-white/78 lg:bg-white/90 backdrop-blur-md rounded-xl p-6 lg:p-8 border border-slate-200 max-w-[17rem] lg:max-w-md shadow-xl pointer-events-auto ml-auto">
               <p className="text-blue-600 text-sm font-bold tracking-widest uppercase mb-2">Phase 2</p>
               <h3 className="font-display text-3xl font-semibold mb-4 text-slate-900">The Abutment</h3>
               <p className="text-slate-600 leading-relaxed">
@@ -344,7 +344,7 @@ export function ImplantAnatomyScene() {
           </div>
 
           <div className="min-h-[100svh] lg:min-h-[100dvh] flex flex-col justify-end px-4 md:px-12 pb-[10svh] lg:justify-center lg:pb-[20dvh]">
-            <div className="bg-white/90 backdrop-blur-md rounded-xl p-8 border border-slate-200 max-w-md shadow-xl pointer-events-auto">
+            <div className="bg-white/78 lg:bg-white/90 backdrop-blur-md rounded-xl p-6 lg:p-8 border border-slate-200 max-w-[17rem] lg:max-w-md shadow-xl pointer-events-auto mr-auto lg:mr-0">
               <p className="text-blue-600 text-sm font-bold tracking-widest uppercase mb-2">Phase 3</p>
               <h3 className="font-display text-3xl font-semibold mb-4 text-slate-900">The Crown</h3>
               <p className="text-slate-600 leading-relaxed">
