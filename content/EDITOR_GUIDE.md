@@ -4,7 +4,7 @@ Doctor Park now has a browser-based editing option through Decap CMS:
 
 - Open `/admin` on the deployed site
 - Sign in with the connected GitHub account
-- Edit service-page markdown or the promotional banner
+- Edit service-page markdown or the promotional popup
 - Save and publish changes without touching React files directly
 
 Important: production login is now handled by built-in Next.js routes on Vercel, but GitHub OAuth app credentials still need to be added before `/admin` will work on the live site.
@@ -33,9 +33,9 @@ These files control the long-form website copy:
 - FAQ questions and answers
 - CTA title and description
 
-## 2. Promotional banner
+## 2. Promotional popup
 
-This file controls the optional site-wide promotion banner:
+This file controls the optional site-wide promotion popup:
 
 - `content/promotion-banner.json`
 

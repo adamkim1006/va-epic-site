@@ -1,5 +1,5 @@
 {
-  "enabled": false,
+  "enabled": true,
   "ctaLabel": "Schedule Now",
   "message": "Highlight limited-time offers, educational events, or scheduling updates here. Toggle this banner on when you want it to appear site-wide.",
   "imageSrc": "/images/dong-park-profile-id-photo.png",
