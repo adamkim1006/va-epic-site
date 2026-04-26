@@ -4,14 +4,21 @@ import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X, Phone } from "lucide-react"
+import { ChevronDown, Menu, Phone, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { PromotionBanner } from "@/components/promotion-banner"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { practice, primaryNav } from "@/lib/site"
 
+function hasDropdownItems(
+  link: (typeof primaryNav)[number]
+): link is Extract<(typeof primaryNav)[number], { items: readonly unknown[] }> {
+  return "items" in link
+}
+
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
+  const [openMobileDropdown, setOpenMobileDropdown] = useState<string | null>(null)
 
   return (
     <header className="sticky top-0 z-50 w-full">
@@ -36,15 +43,57 @@ export function Navigation() {
             </Link>
 
             <div className="hidden lg:flex lg:items-center lg:gap-6">
-              {primaryNav.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {primaryNav.map((link) =>
+                hasDropdownItems(link) ? (
+                  <div key={link.href} className="group relative">
+                    <div className="flex items-center gap-1">
+                      <Link
+                        href={link.href}
+                        className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                      >
+                        {link.label}
+                      </Link>
+                      <ChevronDown className="h-4 w-4 text-muted-foreground transition-transform duration-200 group-hover:rotate-180 group-hover:text-primary" />
+                    </div>
+                    <div className="pointer-events-none absolute left-1/2 top-full z-50 w-[22rem] -translate-x-1/2 pt-4 opacity-0 transition-all duration-200 group-hover:pointer-events-auto group-hover:opacity-100">
+                      <div className="overflow-hidden rounded-[1.6rem] border border-border bg-card p-3 shadow-[0_32px_80px_-44px_rgba(15,23,42,0.45)]">
+                        <div className="rounded-[1.2rem] bg-[linear-gradient(135deg,rgba(79,209,217,0.08)_0%,rgba(37,99,235,0.05)_100%)] p-3">
+                          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
+                            {link.label}
+                          </p>
+                          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                            Explore the most relevant pages in this section.
+                          </p>
+                        </div>
+                        <div className="mt-2 space-y-1">
+                          {link.items.map((item) => (
+                            <Link
+                              key={item.href}
+                              href={item.href}
+                              className="block rounded-[1.15rem] px-4 py-3 transition-colors hover:bg-secondary"
+                            >
+                              <p className="text-sm font-semibold text-foreground">
+                                {item.label}
+                              </p>
+                              <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                                {item.description}
+                              </p>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                  >
+                    {link.label}
+                  </Link>
+                )
+              )}
             </div>
 
             <div className="flex items-center gap-3">
@@ -62,7 +111,12 @@ export function Navigation() {
               </Button>
 
               <button
-                onClick={() => setIsOpen(!isOpen)}
+                onClick={() => {
+                  setIsOpen(!isOpen)
+                  if (isOpen) {
+                    setOpenMobileDropdown(null)
+                  }
+                }}
                 className="p-2 text-muted-foreground hover:text-primary lg:hidden"
                 aria-label="Toggle menu"
                 aria-expanded={isOpen}
@@ -84,16 +138,81 @@ export function Navigation() {
                 className="overflow-hidden lg:hidden"
               >
                 <div className="space-y-2 py-4">
-                  {primaryNav.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      onClick={() => setIsOpen(false)}
-                      className="block rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-primary"
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
+                  {primaryNav.map((link) =>
+                    hasDropdownItems(link) ? (
+                      <div
+                        key={link.href}
+                        className="rounded-2xl border border-border bg-secondary/35 px-3 py-3"
+                      >
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setOpenMobileDropdown((current) =>
+                              current === link.href ? null : link.href
+                            )
+                          }
+                          className="flex w-full items-center justify-between gap-3 text-left text-sm font-semibold text-foreground transition-colors hover:text-primary"
+                          aria-expanded={openMobileDropdown === link.href}
+                        >
+                          <span>{link.label}</span>
+                          <ChevronDown
+                            className={`h-4 w-4 transition-transform ${
+                              openMobileDropdown === link.href ? "rotate-180" : ""
+                            }`}
+                          />
+                        </button>
+                        <AnimatePresence initial={false}>
+                          {openMobileDropdown === link.href ? (
+                            <motion.div
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: "auto" }}
+                              exit={{ opacity: 0, height: 0 }}
+                              transition={{ duration: 0.18 }}
+                              className="overflow-hidden"
+                            >
+                              <div className="mt-3 space-y-1">
+                                <Link
+                                  href={link.href}
+                                  onClick={() => {
+                                    setIsOpen(false)
+                                    setOpenMobileDropdown(null)
+                                  }}
+                                  className="block rounded-xl px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-background hover:text-primary"
+                                >
+                                  {link.label} Overview
+                                </Link>
+                                {link.items.map((item) => (
+                                  <Link
+                                    key={item.href}
+                                    href={item.href}
+                                    onClick={() => {
+                                      setIsOpen(false)
+                                      setOpenMobileDropdown(null)
+                                    }}
+                                    className="block rounded-xl px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-background hover:text-primary"
+                                  >
+                                    {item.label}
+                                  </Link>
+                                ))}
+                              </div>
+                            </motion.div>
+                          ) : null}
+                        </AnimatePresence>
+                      </div>
+                    ) : (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        onClick={() => {
+                          setIsOpen(false)
+                          setOpenMobileDropdown(null)
+                        }}
+                        className="block rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-primary"
+                      >
+                        {link.label}
+                      </Link>
+                    )
+                  )}
                   <div className="px-3 pt-4">
                     <Button asChild className="w-full">
                       <Link href="/contact">Schedule Consultation</Link>

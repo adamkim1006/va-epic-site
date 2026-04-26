@@ -136,7 +136,7 @@ export default async function ForPatientsPage() {
               {
                 title: "Upload Before You Visit",
                 description:
-                  "Completed forms can be sent directly to the office through the secure upload area on this page, using the same intake inbox as website inquiries.",
+                  "Completed forms can be uploaded here and sent to the office before your appointment.",
                 icon: FolderHeart,
               },
               {

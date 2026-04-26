@@ -7,32 +7,32 @@ const fallbackReviews: GoogleReview[] = [
     content:
       "The office explained my implant options clearly and helped me understand the entire process before we started. I felt informed instead of overwhelmed.",
     rating: 5,
-    treatment: "Website Sample",
-    relativeTime: "Fallback review",
+    treatment: "Patient Review",
+    relativeTime: "Recent feedback",
   },
   {
     name: "FP",
     content:
       "After years of struggling with failing teeth, I finally understood what a full-arch solution could look like. The consultation gave me a lot more confidence in moving forward.",
     rating: 5,
-    treatment: "Website Sample",
-    relativeTime: "Fallback review",
+    treatment: "Patient Review",
+    relativeTime: "Recent feedback",
   },
   {
     name: "PP",
     content:
       "I came in worried about gum recession and bone loss, and the team gave me a straightforward explanation of what was happening and what could be done.",
     rating: 5,
-    treatment: "Website Sample",
-    relativeTime: "Fallback review",
+    treatment: "Patient Review",
+    relativeTime: "Recent feedback",
   },
   {
     name: "CP",
     content:
       "I appreciated how practical and honest the office was about treatment sequencing, timing, and costs. It felt like a specialist office that still spoke plainly.",
     rating: 5,
-    treatment: "Website Sample",
-    relativeTime: "Fallback review",
+    treatment: "Patient Review",
+    relativeTime: "Recent feedback",
   },
 ]
 

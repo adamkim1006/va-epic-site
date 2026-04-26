@@ -181,9 +181,9 @@ export function NewPatientFormsUploader({
   }
 
   return (
-    <div className="grid gap-8 xl:grid-cols-[0.88fr_1.12fr]">
-      <div className="space-y-6">
-        <div className="rounded-[2rem] border border-border bg-card p-7 shadow-sm">
+    <div className="grid gap-6 xl:grid-cols-[0.88fr_1.12fr] xl:gap-8">
+      <div className="order-2 space-y-5 xl:order-1 xl:space-y-6">
+        <div className="rounded-[1.75rem] border border-border bg-card p-5 shadow-sm sm:p-7">
           <div className="flex items-center gap-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent/10">
               <CheckCircle2 className="h-6 w-6 text-accent" />
@@ -197,7 +197,7 @@ export function NewPatientFormsUploader({
               </h3>
             </div>
           </div>
-          <div className="mt-6 space-y-4 text-sm leading-relaxed text-muted-foreground">
+          <div className="mt-5 space-y-4 text-sm leading-relaxed text-muted-foreground sm:mt-6">
             <p>
               These three forms are the main items new patients should complete
               before coming in for their first visit.
@@ -231,7 +231,7 @@ export function NewPatientFormsUploader({
           {forms.map((form) => (
             <div
               key={form.slug}
-              className="rounded-[1.6rem] border border-border bg-card p-5 shadow-sm"
+              className="rounded-[1.45rem] border border-border bg-card p-4 shadow-sm sm:p-5"
             >
               <div className="flex items-start gap-4">
                 <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-accent/10">
@@ -253,7 +253,7 @@ export function NewPatientFormsUploader({
                 </div>
               </div>
               <div className="mt-5">
-                <Button asChild className="rounded-full">
+                <Button asChild className="w-full rounded-full sm:w-auto">
                   <Link href={form.publicPath} target="_blank">
                     <Download className="h-4 w-4" />
                     Open form
@@ -267,7 +267,7 @@ export function NewPatientFormsUploader({
 
       <form
         onSubmit={handleSubmit}
-        className="rounded-[2rem] border border-border bg-card p-7 shadow-[0_24px_80px_-52px_rgba(15,23,42,0.42)]"
+        className="order-1 rounded-[1.75rem] border border-border bg-card p-5 shadow-[0_24px_80px_-52px_rgba(15,23,42,0.42)] sm:p-7 xl:order-2"
       >
         <div className="flex items-start gap-4">
           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10">
@@ -282,8 +282,7 @@ export function NewPatientFormsUploader({
             </h3>
             <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
               Drag and drop your completed forms here, or select them manually.
-              They will be emailed to the same office inbox used for website contact
-              requests.
+              They will be emailed directly to the office for review before your appointment.
             </p>
           </div>
         </div>
@@ -386,7 +385,7 @@ export function NewPatientFormsUploader({
           }}
           onDrop={handleDrop}
           className={cn(
-            "mt-6 rounded-[1.75rem] border border-dashed px-6 py-8 text-center transition-colors",
+            "mt-6 rounded-[1.5rem] border border-dashed px-4 py-6 text-center transition-colors sm:px-6 sm:py-8",
             isDragging
               ? "border-primary bg-primary/5"
               : "border-border bg-secondary/50 hover:border-accent/40 hover:bg-secondary/80"
@@ -415,7 +414,7 @@ export function NewPatientFormsUploader({
         </div>
 
         <div className="mt-6 rounded-[1.5rem] border border-border bg-secondary/40 p-4">
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-sm font-medium text-foreground">Attached files</p>
               <p className="mt-1 text-xs text-muted-foreground">
@@ -494,7 +493,7 @@ export function NewPatientFormsUploader({
           <Button
             type="submit"
             size="lg"
-            className="rounded-full px-6"
+            className="w-full rounded-full px-6 sm:w-auto"
             disabled={isSubmitting}
           >
             {isSubmitting ? (

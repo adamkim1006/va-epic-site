@@ -1,8 +1,9 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
 import { motion } from "framer-motion"
-import { Send, Loader2 } from "lucide-react"
+import { ArrowRight, FileText, Loader2, Send } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -159,6 +160,19 @@ export function ContactForm() {
             </>
           )}
         </Button>
+        <div className="rounded-2xl border border-border bg-secondary/45 px-4 py-4 text-center sm:px-5">
+          <p className="text-sm font-medium text-foreground">
+            Need to complete new-patient paperwork before your first appointment?
+          </p>
+          <Link
+            href="/for-patients#patient-forms"
+            className="mt-2 inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
+          >
+            <FileText className="h-4 w-4" />
+            Fill out forms on the For Patients page
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
       </form>
     </motion.div>
   )

@@ -12,7 +12,6 @@ export type PatientFormItem = {
   category: PatientFormCategory
   extension: "pdf" | "docx"
   publicPath: string
-  availablePreview: boolean
   sizeLabel: string
 }
 
@@ -58,7 +57,6 @@ export async function getPatientForms(): Promise<PatientFormItem[]> {
       category: entry.category,
       extension,
       publicPath: toPublicPath(entry.filename),
-      availablePreview: extension === "pdf",
       sizeLabel: formatSize(stats.size),
     } satisfies PatientFormItem
   })
@@ -68,17 +66,4 @@ export async function getPatientForms(): Promise<PatientFormItem[]> {
   return resolved
     .filter((item): item is PatientFormItem => Boolean(item))
     .sort((a, b) => a.title.localeCompare(b.title))
-}
-
-export async function getPatientFormBySlug(slug?: string) {
-  const forms = await getPatientForms()
-  const selected =
-    forms.find((item) => item.slug === slug) ||
-    forms.find((item) => item.availablePreview) ||
-    forms[0]
-
-  return {
-    forms,
-    selected,
-  }
 }

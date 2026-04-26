@@ -53,7 +53,6 @@ export class WebGLErrorBoundary extends Component<ErrorBoundaryProps, ErrorBound
 
   componentDidCatch(error: Error) {
     const label = this.props.sceneName ?? "Scene"
-    // Replace with your own error service (Sentry, Datadog, etc.)
     console.warn(`[${label}] WebGL error — rendering static fallback.`, error.message)
   }
 
@@ -65,9 +64,7 @@ export class WebGLErrorBoundary extends Component<ErrorBoundaryProps, ErrorBound
 // ─────────────────────────────────────────────────────────────────────────────
 // StaticFallback
 //
-// Shown when WebGLErrorBoundary catches an error. Drop in a real static image
-// for production — replace the emoji placeholder with:
-//   <Image src="/images/fallback/implant-diagram.jpg" alt="..." fill />
+// Shown when WebGLErrorBoundary catches an error.
 // ─────────────────────────────────────────────────────────────────────────────
 interface StaticFallbackProps {
   /** Alt text / label for the fallback content */

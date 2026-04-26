@@ -17,15 +17,6 @@ export const practice = {
     "Proudly serving Chantilly, Centreville, South Riding, Fairfax, and surrounding Northern Virginia communities.",
 } as const
 
-export const primaryNav = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About Us" },
-  { href: "/our-services", label: "Our Services" },
-  { href: "/for-patients", label: "For Patients" },
-  { href: "/faqs", label: "FAQs" },
-  { href: "/contact", label: "Contact" },
-] as const
-
 export const servicePages = [
   {
     href: "/dental-implants-chantilly-va",
@@ -45,6 +36,46 @@ export const servicePages = [
     shortDescription:
       "Evidence-based gum disease treatment, grafting, and periodontal surgery focused on preserving teeth and supporting oral health.",
   },
+] as const
+
+export const primaryNav = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About Us" },
+  {
+    href: "/our-services",
+    label: "Our Services",
+    items: servicePages.map((page) => ({
+      href: page.href,
+      label: page.label,
+      description: page.shortDescription,
+    })),
+  },
+  {
+    href: "/for-patients",
+    label: "For Patients",
+    items: [
+      {
+        href: "/for-patients#patient-forms",
+        label: "New Patient Paperwork",
+        description:
+          "Download and send first-visit registration, HIPAA, and financial-policy forms.",
+      },
+      {
+        href: "/for-patients",
+        label: "Patient Forms Library",
+        description:
+          "Open patient forms and post-operative PDFs from one central page.",
+      },
+      {
+        href: "/faqs#financing",
+        label: "Financing & Insurance",
+        description:
+          "Review common payment and insurance questions before your consultation.",
+      },
+    ],
+  },
+  { href: "/faqs", label: "FAQs" },
+  { href: "/contact", label: "Contact" },
 ] as const
 
 export const insuranceProviders = [
