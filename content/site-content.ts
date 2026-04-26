@@ -65,9 +65,12 @@ export const patientResourceCopy = {
   introTitle: "Patient Resources",
   introDescription:
     "Most specialty practices place forms and preparation details in a patient-resources area rather than burying them under contact or FAQ pages. This layout keeps documents easy to find for both new and returning patients.",
-  previewTitle: "Form Preview",
-  previewDescription:
-    "Every patient form on this page can now be previewed inside the website with a larger built-in PDF reader, plus quick open and download options.",
+  newPatientTitle: "New Patient Paperwork",
+  newPatientDescription:
+    "If this is your first visit, please complete the registration, HIPAA, and financial-policy forms ahead of time when possible. You can download them here and send the completed paperwork directly to the office before your appointment.",
+  formsLibraryTitle: "Patient Forms Library",
+  formsLibraryDescription:
+    "Use the links below to open or download patient forms and post-operative instructions. New-patient paperwork is grouped separately at the top so first-time visitors can complete the right forms before they arrive.",
   supportTitle: "Need Help With a Form?",
   supportDescription:
     "If you are unsure which form applies to your visit or prefer to complete paperwork in the office, call VA EPIC and the team can guide you.",

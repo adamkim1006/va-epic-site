@@ -30,26 +30,19 @@ export function DoctorSection() {
   return (
     <Section variant="muted">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="relative mx-auto w-full max-w-xl lg:mx-0"
-        >
-          <div className="brand-gradient-soft rounded-[2.3rem] border border-accent/15 p-6 shadow-sm">
-            <div className="rounded-[1.8rem] bg-white p-6 ring-1 ring-border/80">
-              <div className="relative mx-auto aspect-[4/5] max-w-[360px] overflow-hidden rounded-[1.6rem] bg-secondary">
-                <Image
-                  src="/images/dong-park-profile-id-photo.png"
-                  alt="Dr. Dong-Soo Park"
-                  fill
-                  className="object-contain p-3"
-                />
-              </div>
+        <div className="mx-auto w-full max-w-sm lg:mx-20">
+          <div className="relative min-w-0 flex-1 overflow-hidden rounded-2xl border border-border/70 bg-muted shadow-[0_18px_40px_-24px_rgba(15,23,42,0.28)]">
+            <div className="relative aspect-[3/4] h-full w-full">
+              <Image
+                src="/images/dong-park-profile-id-photo.png"
+                alt="Dr. Dong-Soo Park"
+                fill
+                className="object-cover"
+                sizes="220px"
+              />
             </div>
           </div>
-        </motion.div>
+        </div>
         <div>
           <SectionHeader
             align="left"

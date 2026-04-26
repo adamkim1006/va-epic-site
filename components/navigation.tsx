@@ -95,9 +95,6 @@ export function Navigation() {
                     </Link>
                   ))}
                   <div className="px-3 pt-4">
-                    <div className="mb-3 flex justify-end">
-                      <ThemeToggle />
-                    </div>
                     <Button asChild className="w-full">
                       <Link href="/contact">Schedule Consultation</Link>
                     </Button>

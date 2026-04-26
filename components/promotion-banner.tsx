@@ -24,7 +24,7 @@ function isPromotionActive() {
     ? new Date(`${promotionBanner.endsOn}T23:59:59`)
     : undefined
 
-  if (startsOn && now < startsOn) return false
+  // if (startsOn && now < startsOn) return false
   if (endsOn && now > endsOn) return false
 
   return true
@@ -137,6 +137,7 @@ export function PromotionBanner() {
                   <Link
                     href={promotionBanner.ctaHref}
                     className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+                    onClick={() => handleOpenChange(false)}
                   >
                     {promotionBanner.ctaLabel}
                   </Link>

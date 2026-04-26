@@ -2,13 +2,6 @@
 
 import Image from "next/image"
 import { motion } from "framer-motion"
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel"
 
 type OfficeImage = {
   src: string
@@ -17,45 +10,47 @@ type OfficeImage = {
 }
 
 export function OfficeCarousel({ images }: { images: readonly OfficeImage[] }) {
+  const trackImages = [...images, ...images]
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
-      className="mt-12"
+      className="mt-12 overflow-hidden"
     >
-      <Carousel
-        opts={{ align: "start", loop: true }}
-        className="mx-auto max-w-6xl"
+      <motion.div
+        className="flex w-max gap-4 md:gap-5"
+        animate={{ x: ["0%", "-50%"] }}
+        transition={{
+          duration: 42,
+          repeat: Infinity,
+          ease: "linear",
+        }}
       >
-        <CarouselContent>
-          {images.map((image) => (
-            <CarouselItem
-              key={image.src}
-              className="basis-[92%] md:basis-[72%] lg:basis-[58%]"
-            >
-              <div className="overflow-hidden rounded-[2rem] border border-border bg-card shadow-sm">
-                <div className="relative aspect-[4/3]">
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 92vw, (max-width: 1280px) 72vw, 58vw"
-                  />
-                </div>
-                <div className="border-t border-border px-5 py-4">
-                  <p className="text-sm font-medium text-foreground">{image.label}</p>
-                </div>
+        {trackImages.map((image, index) => (
+          <div
+            key={`${image.src}-${index}`}
+            className="w-[17rem] shrink-0 md:w-[29rem] lg:w-[31rem]"
+          >
+            <div className="overflow-hidden rounded-[2rem] border border-border bg-card shadow-sm">
+              <div className="relative aspect-[4/3]">
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 272px, (max-width: 1280px) 336px, 368px"
+                />
               </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious className="left-3 top-auto bottom-4 translate-y-0 border-white/70 bg-white/92 text-primary hover:bg-white" />
-        <CarouselNext className="right-3 top-auto bottom-4 translate-y-0 border-white/70 bg-white/92 text-primary hover:bg-white" />
-      </Carousel>
+              <div className="border-t border-border px-5 py-4">
+                <p className="text-sm font-medium text-foreground">{image.label}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </motion.div>
     </motion.div>
   )
 }
-
