@@ -16,7 +16,6 @@ export function Navigation() {
   return (
     <header className="sticky top-0 z-50 w-full">
       <div className="bg-card/92 backdrop-blur-md">
-        <PromotionBanner />
         <nav className="mx-auto max-w-7xl border-b border-border/80 px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <Link
@@ -49,6 +48,7 @@ export function Navigation() {
             </div>
 
             <div className="flex items-center gap-3">
+              <PromotionBanner />
               <ThemeToggle />
               <a
                 href={practice.phoneHref}

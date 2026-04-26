@@ -64,19 +64,30 @@ export function PromotionBanner() {
   return (
     <>
       {!isOpen ? (
-        <button
-          type="button"
-          onClick={() => handleOpenChange(true)}
-          className="fixed right-0 top-1/2 z-[70] translate-y-8 sm:-translate-y-1/4 rounded-l-2xl border border-r-0 border-primary/20 bg-white/95 px-3 py-4 text-left shadow-[0_18px_40px_-20px_rgba(15,23,42,0.45)] backdrop-blur-md transition-colors hover:bg-primary hover:text-primary-foreground"
-          aria-label="Open promotional update"
-        >
-          <span className="flex items-center gap-2">
+        <>
+          <button
+            type="button"
+            onClick={() => handleOpenChange(true)}
+            className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-white/90 px-3 py-2 text-sm font-medium text-muted-foreground shadow-sm transition-colors hover:border-primary/35 hover:text-primary sm:hidden"
+            aria-label="Open promotional update"
+          >
             <Megaphone className="h-4 w-4" />
-            <span className="hidden sm:block [writing-mode:vertical-rl] rotate-180 text-[11px] font-semibold uppercase tracking-[0.22em]">
-              Promotion
+          </button>
+
+          <button
+            type="button"
+            onClick={() => handleOpenChange(true)}
+            className="fixed right-0 top-1/2 z-[70] hidden -translate-y-1/4 rounded-l-2xl border border-r-0 border-primary/20 bg-white/95 px-3 py-4 text-left shadow-[0_18px_40px_-20px_rgba(15,23,42,0.45)] backdrop-blur-md transition-colors hover:bg-primary hover:text-primary-foreground sm:flex"
+            aria-label="Open promotional update"
+          >
+            <span className="flex items-center gap-2">
+              <Megaphone className="h-4 w-4" />
+              <span className="[writing-mode:vertical-rl] rotate-180 text-[11px] font-semibold uppercase tracking-[0.22em]">
+                Promotion
+              </span>
             </span>
-          </span>
-        </button>
+          </button>
+        </>
       ) : null}
 
       <Sheet open={isOpen} onOpenChange={handleOpenChange}>
