@@ -45,8 +45,8 @@ export function HeroSection({
               opacity: backgroundOpacity,
             }}
           />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(249,250,251,0.48)_0%,rgba(249,250,251,0.84)_72%,rgba(249,250,251,0.94)_100%)] dark:bg-[linear-gradient(180deg,rgba(8,17,29,0.54)_0%,rgba(8,17,29,0.82)_72%,rgba(8,17,29,0.94)_100%)]" />
-          <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(79,209,217,0.22)_0%,rgba(37,99,235,0.14)_42%,rgba(255,255,255,0)_76%)] dark:bg-[linear-gradient(120deg,rgba(79,209,217,0.14)_0%,rgba(37,99,235,0.18)_42%,rgba(8,17,29,0)_76%)]" />
+          <div className="absolute inset-0 bg-[rgba(249,250,251,0.72)] dark:bg-[rgba(8,17,29,0.76)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(79,209,217,0.16)_0%,rgba(37,99,235,0.1)_42%,rgba(255,255,255,0)_76%)] dark:bg-[linear-gradient(120deg,rgba(79,209,217,0.1)_0%,rgba(37,99,235,0.14)_42%,rgba(8,17,29,0)_76%)]" />
         </>
       )}
 
