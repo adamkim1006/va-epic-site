@@ -157,6 +157,7 @@ export function DoctorProfile() {
                 src={photo.src}
                 alt={photo.alt}
                 fill
+                unoptimized
                 className={photo.imageClassName}
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 200px"
               />
