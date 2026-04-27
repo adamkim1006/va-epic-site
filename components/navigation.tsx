@@ -23,7 +23,7 @@ export function Navigation() {
   return (
     <header className="sticky top-0 z-50 w-full">
       <div className="bg-card/92 backdrop-blur-md">
-        <nav className="mx-auto max-w-7xl border-b border-border/80 px-4 sm:px-6 lg:px-8">
+        <nav className="relative mx-auto max-w-7xl border-b border-border/80 px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <Link
               href="/"
@@ -131,13 +131,13 @@ export function Navigation() {
             {isOpen && (
               <motion.div
                 id="mobile-nav"
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.2 }}
-                className="overflow-hidden lg:hidden"
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.18 }}
+                className="absolute inset-x-0 top-full z-50 border-b border-border/80 bg-card/98 px-4 pb-4 pt-3 shadow-[0_24px_60px_-40px_rgba(15,23,42,0.5)] backdrop-blur-md lg:hidden sm:px-6"
               >
-                <div className="space-y-2 py-4">
+                <div className="mx-auto max-w-7xl space-y-2">
                   {primaryNav.map((link) =>
                     hasDropdownItems(link) ? (
                       <div
