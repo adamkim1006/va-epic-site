@@ -61,7 +61,7 @@ const personalPhotos = [
     imageClassName: "object-cover object-[center_40%]",
   },
   {
-    src: "/images/doctor-gallery/dental-presentation.JPG",
+    src: "/images/doctor-gallery/dental-presentation.jpg",
     alt: "Dr. Park teaching at a conference",
     caption: "Teaching at the University of Maryland School of Dentistry",
     imageClassName: "object-cover object-center",
