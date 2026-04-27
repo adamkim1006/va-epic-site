@@ -219,7 +219,7 @@ export default async function ForPatientsPage() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="inline-flex items-center justify-center rounded-full border border-border bg-white px-5 py-3 text-sm font-medium text-foreground transition-colors hover:border-accent/30 hover:text-primary"
+                className="inline-flex items-center justify-center rounded-full border border-border bg-white px-5 py-3 text-sm font-medium text-foreground transition-colors hover:border-accent/30 hover:text-primary dark:border-white/10 dark:bg-slate-950/76 dark:text-slate-200 dark:hover:border-accent/35 dark:hover:text-accent"
               >
                 {link.label}
               </Link>

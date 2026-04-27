@@ -1,12 +1,12 @@
 "use client"
 
 import { useState } from "react"
-import Image from "next/image"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronDown, Menu, Phone, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { PromotionBanner } from "@/components/promotion-banner"
+import { SiteLogo } from "@/components/site-logo"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { practice, primaryNav } from "@/lib/site"
 
@@ -25,22 +25,12 @@ export function Navigation() {
       <div className="bg-card/92 backdrop-blur-md">
         <nav className="relative mx-auto max-w-7xl border-b border-border/80 px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
-            <Link
-              href="/"
-              className="flex items-center"
-              aria-label={`${practice.legalName} home`}
-            >
-              <div className="relative h-11 w-[176px] overflow-hidden rounded-md bg-white ring-1 ring-border/80 sm:h-12 sm:w-[196px] lg:h-14 lg:w-[248px]">
-                <Image
-                  src="/images/va-epic-logo.jpg"
-                  alt={`${practice.name} logo`}
-                  fill
-                  className="object-contain p-1.5 sm:p-2"
-                  sizes="(max-width: 640px) 176px, (max-width: 1024px) 196px, 248px"
-                  priority
-                />
-              </div>
-            </Link>
+            <SiteLogo
+              label={`${practice.legalName} home`}
+              containerClassName="h-11 w-[176px] sm:h-12 sm:w-[196px] lg:h-14 lg:w-[248px]"
+              sizes="(max-width: 640px) 176px, (max-width: 1024px) 196px, 248px"
+              priority
+            />
 
             <div className="hidden lg:flex lg:items-center lg:gap-6">
               {primaryNav.map((link) =>
@@ -140,27 +130,36 @@ export function Navigation() {
                 <div className="mx-auto max-w-7xl space-y-2">
                   {primaryNav.map((link) =>
                     hasDropdownItems(link) ? (
-                      <div
-                        key={link.href}
-                        className="rounded-2xl border border-border bg-secondary/35 px-3 py-3"
-                      >
-                        <button
-                          type="button"
-                          onClick={() =>
-                            setOpenMobileDropdown((current) =>
-                              current === link.href ? null : link.href
-                            )
-                          }
-                          className="flex w-full items-center justify-between gap-3 text-left text-sm font-semibold text-foreground transition-colors hover:text-primary"
-                          aria-expanded={openMobileDropdown === link.href}
-                        >
-                          <span>{link.label}</span>
-                          <ChevronDown
-                            className={`h-4 w-4 transition-transform ${
-                              openMobileDropdown === link.href ? "rotate-180" : ""
-                            }`}
-                          />
-                        </button>
+                      <div key={link.href}>
+                        <div className="flex items-center justify-between gap-3 px-3 py-2">
+                          <Link
+                            href={link.href}
+                            onClick={() => {
+                              setIsOpen(false)
+                              setOpenMobileDropdown(null)
+                            }}
+                            className="block text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                          >
+                            {link.label}
+                          </Link>
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setOpenMobileDropdown((current) =>
+                                current === link.href ? null : link.href
+                              )
+                            }
+                            className="inline-flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-primary"
+                            aria-label={`Toggle ${link.label} menu`}
+                            aria-expanded={openMobileDropdown === link.href}
+                          >
+                            <ChevronDown
+                              className={`h-4 w-4 transition-transform ${
+                                openMobileDropdown === link.href ? "rotate-180" : ""
+                              }`}
+                            />
+                          </button>
+                        </div>
                         <AnimatePresence initial={false}>
                           {openMobileDropdown === link.href ? (
                             <motion.div
@@ -170,17 +169,7 @@ export function Navigation() {
                               transition={{ duration: 0.18 }}
                               className="overflow-hidden"
                             >
-                              <div className="mt-3 space-y-1">
-                                <Link
-                                  href={link.href}
-                                  onClick={() => {
-                                    setIsOpen(false)
-                                    setOpenMobileDropdown(null)
-                                  }}
-                                  className="block rounded-xl px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-background hover:text-primary"
-                                >
-                                  {link.label} Overview
-                                </Link>
+                              <div className="space-y-1 pb-2 pl-3">
                                 {link.items.map((item) => (
                                   <Link
                                     key={item.href}
@@ -189,7 +178,7 @@ export function Navigation() {
                                       setIsOpen(false)
                                       setOpenMobileDropdown(null)
                                     }}
-                                    className="block rounded-xl px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-background hover:text-primary"
+                                    className="block rounded-xl px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-primary"
                                   >
                                     {item.label}
                                   </Link>

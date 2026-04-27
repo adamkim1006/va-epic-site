@@ -4,7 +4,7 @@ metaDescription: Expert periodontal treatment in Chantilly, Virginia for gum dis
 heroSubtitle: Periodontal Care
 heroTitle: Periodontal Treatment in Chantilly, VA
 heroDescription: Periodontal treatment at VA EPIC focuses on controlling disease, preserving teeth when possible, and restoring healthy support for long-term oral function.
-heroBackgroundImageSrc: /images/Site%20Files/gum-disease-dentist-in-winchester-va.jpg
+heroBackgroundImageSrc: /images/Site Files/periodontal-care-bg.png
 heroBackgroundPosition: center 22%
 visualSectionSubtitle: Disease Control and Healing
 visualSectionTitle: How Periodontal Treatment Changes the Environment Around the Tooth

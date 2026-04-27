@@ -45,8 +45,8 @@ export function HeroSection({
               opacity: backgroundOpacity,
             }}
           />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(249,250,251,0.48)_0%,rgba(249,250,251,0.84)_72%,rgba(249,250,251,0.94)_100%)]" />
-          <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(79,209,217,0.22)_0%,rgba(37,99,235,0.14)_42%,rgba(255,255,255,0)_76%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(249,250,251,0.48)_0%,rgba(249,250,251,0.84)_72%,rgba(249,250,251,0.94)_100%)] dark:bg-[linear-gradient(180deg,rgba(8,17,29,0.54)_0%,rgba(8,17,29,0.82)_72%,rgba(8,17,29,0.94)_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(79,209,217,0.22)_0%,rgba(37,99,235,0.14)_42%,rgba(255,255,255,0)_76%)] dark:bg-[linear-gradient(120deg,rgba(79,209,217,0.14)_0%,rgba(37,99,235,0.18)_42%,rgba(8,17,29,0)_76%)]" />
         </>
       )}
 
@@ -66,7 +66,7 @@ export function HeroSection({
             transition={{ duration: 1, delay: 0.3 }}
             className="absolute bottom-0 left-0 h-[460px] w-[460px] translate-y-1/4 -translate-x-1/5 rounded-full bg-[radial-gradient(circle,rgba(37,99,235,0.18)_0%,rgba(37,99,235,0)_70%)] blur-3xl"
           />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.04)_0%,rgba(255,255,255,0)_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.04)_0%,rgba(255,255,255,0)_100%)] dark:bg-[linear-gradient(180deg,rgba(255,255,255,0.03)_0%,rgba(255,255,255,0)_100%)]" />
         </div>
       )}
 
@@ -77,7 +77,7 @@ export function HeroSection({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="mb-4 inline-flex rounded-full border border-accent/30 bg-white/80 px-4 py-1.5 text-sm font-medium uppercase tracking-[0.18em] text-primary shadow-sm backdrop-blur"
+              className="mb-4 inline-flex rounded-full border border-accent/30 bg-white/80 px-4 py-1.5 text-sm font-medium uppercase tracking-[0.18em] text-primary shadow-sm backdrop-blur dark:bg-slate-950/65 dark:text-accent dark:shadow-[0_18px_48px_-36px_rgba(0,0,0,0.9)]"
             >
               {subtitle}
             </motion.p>

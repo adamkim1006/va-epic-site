@@ -772,30 +772,30 @@ export function ImplantAnatomyScene() {
 
         <div className="relative z-10 w-full lg:w-1/2 pointer-events-none -mt-[100svh] lg:mt-0">
           <div className="min-h-[100svh] lg:min-h-[100dvh] flex flex-col justify-end lg:justify-center px-4 md:px-12 pb-[12svh] pt-[40svh] lg:pb-0 lg:pt-0">
-            <div className="bg-white/78 lg:bg-white/90 backdrop-blur-md rounded-xl p-6 lg:p-8 border border-slate-200 max-w-[17rem] lg:max-w-md shadow-xl pointer-events-auto transition-all hover:border-blue-400 mr-auto">
-              <p className="text-blue-600 text-sm font-bold tracking-widest uppercase mb-2">Phase 1</p>
-              <h3 className="font-display text-3xl font-semibold mb-4 text-slate-900">The Implant</h3>
-              <p className="text-slate-600 leading-relaxed">
+            <div className="mr-auto max-w-[17rem] rounded-xl border border-slate-200 bg-white/78 p-6 shadow-xl backdrop-blur-md transition-all hover:border-blue-400 pointer-events-auto dark:border-white/10 dark:bg-slate-950/76 dark:shadow-[0_24px_60px_-32px_rgba(0,0,0,0.88)] lg:max-w-md lg:bg-white/90 lg:p-8">
+              <p className="mb-2 text-sm font-bold uppercase tracking-widest text-blue-600 dark:text-sky-300">Phase 1</p>
+              <h3 className="mb-4 font-display text-3xl font-semibold text-slate-900 dark:text-slate-50">The Implant</h3>
+              <p className="leading-relaxed text-slate-600 dark:text-slate-300">
                 A medical-grade titanium post is surgically placed into the jawbone, acting as a sturdy root for your new tooth.
               </p>
             </div>
           </div>
 
           <div className="min-h-[100svh] lg:min-h-[100dvh] flex flex-col justify-end lg:justify-center px-4 md:px-12 pb-[12svh] lg:pb-0">
-            <div className="bg-white/78 lg:bg-white/90 backdrop-blur-md rounded-xl p-6 lg:p-8 border border-slate-200 max-w-[17rem] lg:max-w-md shadow-xl pointer-events-auto ml-auto">
-              <p className="text-blue-600 text-sm font-bold tracking-widest uppercase mb-2">Phase 2</p>
-              <h3 className="font-display text-3xl font-semibold mb-4 text-slate-900">The Abutment</h3>
-              <p className="text-slate-600 leading-relaxed">
+            <div className="ml-auto max-w-[17rem] rounded-xl border border-slate-200 bg-white/78 p-6 shadow-xl backdrop-blur-md pointer-events-auto dark:border-white/10 dark:bg-slate-950/76 dark:shadow-[0_24px_60px_-32px_rgba(0,0,0,0.88)] lg:max-w-md lg:bg-white/90 lg:p-8">
+              <p className="mb-2 text-sm font-bold uppercase tracking-widest text-blue-600 dark:text-sky-300">Phase 2</p>
+              <h3 className="mb-4 font-display text-3xl font-semibold text-slate-900 dark:text-slate-50">The Abutment</h3>
+              <p className="leading-relaxed text-slate-600 dark:text-slate-300">
                 Once the implant has fused with the bone, a connector called an abutment is attached to hold the custom crown.
               </p>
             </div>
           </div>
 
           <div className="min-h-[100svh] lg:min-h-[100dvh] flex flex-col justify-end px-4 md:px-12 pb-[10svh] lg:justify-center lg:pb-[20dvh]">
-            <div className="bg-white/78 lg:bg-white/90 backdrop-blur-md rounded-xl p-6 lg:p-8 border border-slate-200 max-w-[17rem] lg:max-w-md shadow-xl pointer-events-auto mr-auto lg:mr-0">
-              <p className="text-blue-600 text-sm font-bold tracking-widest uppercase mb-2">Phase 3</p>
-              <h3 className="font-display text-3xl font-semibold mb-4 text-slate-900">The Crown</h3>
-              <p className="text-slate-600 leading-relaxed">
+            <div className="mr-auto max-w-[17rem] rounded-xl border border-slate-200 bg-white/78 p-6 shadow-xl backdrop-blur-md pointer-events-auto dark:border-white/10 dark:bg-slate-950/76 dark:shadow-[0_24px_60px_-32px_rgba(0,0,0,0.88)] lg:mr-0 lg:max-w-md lg:bg-white/90 lg:p-8">
+              <p className="mb-2 text-sm font-bold uppercase tracking-widest text-blue-600 dark:text-sky-300">Phase 3</p>
+              <h3 className="mb-4 font-display text-3xl font-semibold text-slate-900 dark:text-slate-50">The Crown</h3>
+              <p className="leading-relaxed text-slate-600 dark:text-slate-300">
                 Finally, a custom-shaded porcelain crown is placed, restoring full function and a natural aesthetic to your smile.
               </p>
             </div>

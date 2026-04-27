@@ -32,7 +32,7 @@ export function TestimonialCard({
       transition={{ duration: 0.5, delay: index * 0.1 }}
       className="h-full"
     >
-      <Card className="h-full max-h-[500px] w-full max-w-[440px] border-primary/10 bg-white/88 shadow-sm backdrop-blur-sm">
+      <Card className="h-full max-h-[500px] w-full max-w-[440px] border-primary/10 bg-white/88 shadow-sm backdrop-blur-sm dark:border-white/10 dark:bg-slate-950/76 dark:shadow-[0_24px_60px_-42px_rgba(0,0,0,0.85)]">
         <CardContent className="flex h-full flex-col pt-6">
           <div className="mb-5 h-1.5 w-14 rounded-full brand-gradient" />
           <div className="flex gap-1 mb-4">
@@ -48,7 +48,7 @@ export function TestimonialCard({
           <blockquote className="mb-4 min-h-0 flex-1 overflow-y-auto pr-2 text-foreground leading-relaxed [scrollbar-width:thin]">
             &ldquo;{content}&rdquo;
           </blockquote>
-          <div className="border-t border-primary/10 pt-4">
+          <div className="border-t border-primary/10 pt-4 dark:border-white/10">
             <div className="flex items-start justify-between gap-3">
               <div>
                 <p className="font-semibold uppercase tracking-[0.18em] text-foreground">{name}</p>

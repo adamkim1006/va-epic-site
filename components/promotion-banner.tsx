@@ -68,7 +68,7 @@ export function PromotionBanner() {
           <button
             type="button"
             onClick={() => handleOpenChange(true)}
-            className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-white/90 px-3 py-2 text-sm font-medium text-muted-foreground shadow-sm transition-colors hover:border-primary/35 hover:text-primary sm:hidden"
+            className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-white/90 px-3 py-2 text-sm font-medium text-muted-foreground shadow-sm transition-colors hover:border-primary/35 hover:text-primary dark:border-white/12 dark:bg-slate-950/85 dark:text-slate-200 dark:hover:border-accent/40 dark:hover:text-accent sm:hidden"
             aria-label="Open promotional update"
           >
             <Megaphone className="h-4 w-4" />
@@ -77,7 +77,7 @@ export function PromotionBanner() {
           <button
             type="button"
             onClick={() => handleOpenChange(true)}
-            className="fixed right-0 top-1/2 z-[70] hidden -translate-y-1/4 rounded-l-2xl border border-r-0 border-primary/20 bg-white/95 px-3 py-4 text-left shadow-[0_18px_40px_-20px_rgba(15,23,42,0.45)] backdrop-blur-md transition-colors hover:bg-primary hover:text-primary-foreground sm:flex"
+            className="fixed right-0 top-1/2 z-[70] hidden -translate-y-1/4 rounded-l-2xl border border-r-0 border-primary/20 bg-white/95 px-3 py-4 text-left shadow-[0_18px_40px_-20px_rgba(15,23,42,0.45)] backdrop-blur-md transition-colors hover:bg-primary hover:text-primary-foreground dark:border-white/12 dark:bg-slate-950/92 dark:text-slate-200 dark:shadow-[0_24px_60px_-28px_rgba(0,0,0,0.85)] dark:hover:bg-accent dark:hover:text-slate-950 sm:flex"
             aria-label="Open promotional update"
           >
             <span className="flex items-center gap-2">
@@ -93,7 +93,7 @@ export function PromotionBanner() {
       <Sheet open={isOpen} onOpenChange={handleOpenChange}>
         <SheetContent
           side="right"
-          className="w-[92vw] max-w-none border-l border-primary/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(239,246,255,0.97)_100%)] p-0 sm:w-[30rem] sm:max-w-[30rem]"
+          className="w-[92vw] max-w-none border-l border-primary/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(239,246,255,0.97)_100%)] p-0 dark:border-white/10 dark:bg-[linear-gradient(180deg,rgba(8,17,29,0.98)_0%,rgba(15,23,42,0.97)_100%)] sm:w-[30rem] sm:max-w-[30rem]"
         >
           <div className="flex h-full flex-col overflow-y-auto">
             {promotionBanner.imageSrc ? (
@@ -105,8 +105,8 @@ export function PromotionBanner() {
                   className="object-cover"
                   sizes="(max-width: 640px) 92vw, 480px"
                 />
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.08)_0%,rgba(15,23,42,0.38)_100%)]" />
-                <div className="absolute left-5 bottom-5 rounded-full bg-white/88 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-primary shadow-sm backdrop-blur-sm">
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.08)_0%,rgba(15,23,42,0.38)_100%)] dark:bg-[linear-gradient(180deg,rgba(8,17,29,0.12)_0%,rgba(8,17,29,0.58)_100%)]" />
+                <div className="absolute left-5 bottom-5 rounded-full bg-white/88 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-primary shadow-sm backdrop-blur-sm dark:bg-slate-950/78 dark:text-accent dark:shadow-[0_20px_50px_-30px_rgba(0,0,0,0.9)]">
                   Featured Update
                 </div>
               </div>
@@ -123,7 +123,7 @@ export function PromotionBanner() {
 
             <div className="px-6 pb-6">
               {(promotionBanner.startsOn || promotionBanner.endsOn) && (
-                <div className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-xs text-muted-foreground ring-1 ring-border/70">
+                <div className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-xs text-muted-foreground ring-1 ring-border/70 dark:bg-slate-950/72 dark:text-slate-300 dark:ring-white/10">
                   <CalendarDays className="h-3.5 w-3.5" />
                   <span>
                     {promotionBanner.startsOn || "Now"} to{" "}

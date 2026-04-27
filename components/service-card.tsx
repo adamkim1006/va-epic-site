@@ -22,10 +22,10 @@ export function ServiceCard({ title, description, href, icon: Icon, index = 0 }:
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
       <Link href={href} className="block group">
-        <Card className="h-full overflow-hidden border-primary/10 bg-white/88 shadow-sm backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-xl">
+        <Card className="h-full overflow-hidden border-primary/10 bg-white/88 shadow-sm backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-xl dark:border-white/10 dark:bg-slate-950/72 dark:shadow-[0_24px_60px_-42px_rgba(0,0,0,0.85)]">
           <CardHeader>
             <div className="mb-4 h-1 w-16 rounded-full brand-gradient" />
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[linear-gradient(135deg,rgba(79,209,217,0.22)_0%,rgba(37,99,235,0.12)_100%)] text-primary mb-4 ring-1 ring-accent/20 group-hover:bg-accent group-hover:text-accent-foreground transition-colors">
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-[linear-gradient(135deg,rgba(79,209,217,0.22)_0%,rgba(37,99,235,0.12)_100%)] text-primary ring-1 ring-accent/20 transition-colors group-hover:bg-accent group-hover:text-accent-foreground dark:bg-[linear-gradient(135deg,rgba(79,209,217,0.18)_0%,rgba(37,99,235,0.24)_100%)] dark:text-accent dark:ring-accent/25">
               <Icon className="h-6 w-6" />
             </div>
             <CardTitle className="text-xl group-hover:text-primary transition-colors">

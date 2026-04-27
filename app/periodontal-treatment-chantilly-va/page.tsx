@@ -43,7 +43,7 @@ export default async function PeriodontalTreatmentPage() {
             title="The Foundation of Your Smile"
             description="Your gums play a crucial role in supporting your teeth and overall oral health. Periodontal disease, if left untreated, can lead to tooth loss and has been linked to systemic health conditions including heart disease and diabetes."
           />
-          <div className="mt-12 bg-card rounded-2xl p-8 border border-border">
+          <div className="mt-12 rounded-2xl border border-border bg-card p-8 dark:border-white/10 dark:bg-slate-950/76 dark:shadow-[0_24px_60px_-42px_rgba(0,0,0,0.88)]">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
               <div>
                 <div className="text-4xl font-bold text-accent mb-2">47%</div>

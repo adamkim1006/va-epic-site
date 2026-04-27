@@ -84,7 +84,13 @@ export function ContactInfo() {
           {officeHours.map((item) => (
             <li key={item.day} className="flex justify-between text-sm">
               <span className="text-muted-foreground">{item.day}</span>
-              <span className={item.hours === "Closed" ? "text-muted-foreground" : "font-medium"}>
+              <span
+                className={
+                  item.hours.toUpperCase() === "CLOSED"
+                    ? "text-muted-foreground"
+                    : "font-medium"
+                }
+              >
                 {item.hours}
               </span>
             </li>

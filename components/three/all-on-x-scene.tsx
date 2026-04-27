@@ -193,15 +193,15 @@ export function AllOnXScene() {
         </div>
         <div className="relative z-10 w-full lg:w-1/2 pointer-events-none -mt-[100dvh] lg:mt-0">
           <div className="min-h-[100dvh] flex flex-col justify-center px-8 pt-[40vh] lg:pt-0">
-            <div className="bg-white/90 backdrop-blur-md p-8 rounded-xl border shadow-xl pointer-events-auto max-w-md">
-              <h3 className="text-2xl font-bold mb-4">Strategic Placement</h3>
-              <p>Four precision implants are tilted and positioned to maximize existing bone density.</p>
+            <div className="max-w-md rounded-xl border bg-white/90 p-8 shadow-xl backdrop-blur-md pointer-events-auto dark:border-white/10 dark:bg-slate-950/76 dark:shadow-[0_24px_60px_-32px_rgba(0,0,0,0.88)]">
+              <h3 className="mb-4 text-2xl font-bold dark:text-slate-50">Strategic Placement</h3>
+              <p className="text-slate-700 dark:text-slate-300">Four precision implants are tilted and positioned to maximize existing bone density.</p>
             </div>
           </div>
           <div className="min-h-[100dvh] flex flex-col justify-center px-8">
-            <div className="bg-white/90 backdrop-blur-md p-8 rounded-xl border shadow-xl pointer-events-auto max-w-md">
-              <h3 className="text-2xl font-bold mb-4">Immediate Function</h3>
-              <p>A full-arch bridge is secured to the implants, restoring your smile in a single day.</p>
+            <div className="max-w-md rounded-xl border bg-white/90 p-8 shadow-xl backdrop-blur-md pointer-events-auto dark:border-white/10 dark:bg-slate-950/76 dark:shadow-[0_24px_60px_-32px_rgba(0,0,0,0.88)]">
+              <h3 className="mb-4 text-2xl font-bold dark:text-slate-50">Immediate Function</h3>
+              <p className="text-slate-700 dark:text-slate-300">A full-arch bridge is secured to the implants, restoring your smile in a single day.</p>
             </div>
           </div>
         </div>

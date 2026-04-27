@@ -4,7 +4,7 @@ metaDescription: All-on-X full-arch restoration in Chantilly, Virginia. Rebuild 
 heroSubtitle: All-on-X Full Arch
 heroTitle: All-on-4 Dental Implants in Chantilly, VA
 heroDescription: For patients with failing dentition or extensive tooth loss, All-on-X can provide a fixed, implant-supported full-arch solution with a strong emphasis on planning, stability, and function.
-heroBackgroundImageSrc: /images/Site%20Files/All-on-4%20smile.jpg
+heroBackgroundImageSrc: /images/Site Files/All-on-4 smile.jpg
 heroBackgroundPosition: center 28%
 visualSectionSubtitle: Full Arch Restoration
 visualSectionTitle: A Complete Smile Solution

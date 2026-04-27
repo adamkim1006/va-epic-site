@@ -53,6 +53,15 @@ export function getSitemapRoutes() {
 }
 
 export function getLocalBusinessJsonLd() {
+  const regularWeeklyHours = officeHours.filter((item) => {
+    const normalizedHours = item.hours.toUpperCase()
+    return normalizedHours !== "CLOSED" && !normalizedHours.includes("1ST & 3RD")
+  })
+
+  const limitedSaturdayHours = officeHours.find((item) =>
+    item.day === "Saturday" && item.hours.toUpperCase().includes("1ST & 3RD")
+  )
+
   return {
     "@context": "https://schema.org",
     "@type": "Dentist",
@@ -73,14 +82,14 @@ export function getLocalBusinessJsonLd() {
     areaServed: practice.serviceArea,
     priceRange: "$$$",
     sameAs: [practice.mapsHref],
-    openingHoursSpecification: officeHours
-      .filter((item) => item.hours !== "Closed")
-      .map((item) => ({
+    openingHoursSpecification: regularWeeklyHours.map((item) => ({
         "@type": "OpeningHoursSpecification",
         dayOfWeek: item.day,
-        opens: item.hours === "1st & 3rd by appointment" ? "09:00" : "09:00",
-        closes: item.hours === "1st & 3rd by appointment" ? "13:00" : "17:00",
+        opens: "09:00",
+        closes: "17:00",
       })),
+    description: limitedSaturdayHours
+      ? `${practice.shortDescription}. Saturday availability is limited to the 1st and 3rd Saturday of each month from 9:00 AM to 1:00 PM.`
+      : undefined,
   }
 }
-

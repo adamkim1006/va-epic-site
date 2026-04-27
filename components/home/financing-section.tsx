@@ -46,9 +46,9 @@ export function FinancingSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="flex gap-4 rounded-2xl border border-primary/10 bg-white/80 p-4 shadow-sm backdrop-blur-sm"
+              className="flex gap-4 rounded-2xl border border-primary/10 bg-white/80 p-4 shadow-sm backdrop-blur-sm dark:border-white/10 dark:bg-slate-950/72 dark:shadow-[0_24px_60px_-42px_rgba(0,0,0,0.85)]"
             >
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[linear-gradient(135deg,rgba(79,209,217,0.22)_0%,rgba(37,99,235,0.14)_100%)] ring-1 ring-accent/20">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[linear-gradient(135deg,rgba(79,209,217,0.22)_0%,rgba(37,99,235,0.14)_100%)] ring-1 ring-accent/20 dark:bg-[linear-gradient(135deg,rgba(79,209,217,0.16)_0%,rgba(37,99,235,0.26)_100%)] dark:ring-accent/25">
                 <feature.icon className="h-6 w-6 text-accent" />
               </div>
               <div>

@@ -58,7 +58,7 @@ export function PerioTreatments() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="flex gap-4 p-6 bg-card rounded-xl border border-border"
+            className="flex gap-4 rounded-xl border border-border bg-card p-6 dark:border-white/10 dark:bg-slate-950/76 dark:shadow-[0_24px_60px_-42px_rgba(0,0,0,0.88)]"
           >
             <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-accent/10">
               <treatment.icon className="h-7 w-7 text-accent" />
@@ -68,7 +68,7 @@ export function PerioTreatments() {
               <p className="text-muted-foreground text-sm leading-relaxed mb-3">
                 {treatment.description}
               </p>
-              <span className="inline-block text-xs font-medium text-accent bg-accent/10 px-3 py-1 rounded-full">
+              <span className="inline-block rounded-full bg-accent/10 px-3 py-1 text-xs font-medium text-accent dark:bg-accent/14 dark:text-sky-300">
                 {treatment.ideal}
               </span>
             </div>

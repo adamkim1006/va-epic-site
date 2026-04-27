@@ -27,7 +27,7 @@ export default function FAQsPage() {
           primaryButtonText="Schedule Consultation"
           primaryButtonHref="/contact"
           showAnimatedBackground={false}
-          backgroundImageSrc="/images/va-epic-logo.jpg"
+          backgroundImageSrc="/images/Site Files/20201022_153925.jpg"
           backgroundPosition="center"
         />
 

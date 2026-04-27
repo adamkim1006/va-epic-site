@@ -49,8 +49,8 @@ export function Section({
             className={cn(
               "absolute inset-0",
               variant === "primary"
-                ? "bg-[linear-gradient(180deg,rgba(29,78,216,0.76)_0%,rgba(37,99,235,0.84)_100%)]"
-                : "bg-[linear-gradient(180deg,rgba(249,250,251,0.56)_0%,rgba(249,250,251,0.82)_100%)]"
+                ? "bg-[linear-gradient(180deg,rgba(29,78,216,0.76)_0%,rgba(37,99,235,0.84)_100%)] dark:bg-[linear-gradient(180deg,rgba(8,17,29,0.72)_0%,rgba(15,23,42,0.86)_100%)]"
+                : "bg-[linear-gradient(180deg,rgba(249,250,251,0.56)_0%,rgba(249,250,251,0.82)_100%)] dark:bg-[linear-gradient(180deg,rgba(8,17,29,0.56)_0%,rgba(8,17,29,0.84)_100%)]"
             )}
           />
           <div
@@ -58,8 +58,8 @@ export function Section({
             className={cn(
               "absolute inset-0",
               variant === "primary"
-                ? "bg-[radial-gradient(circle_at_top_left,rgba(79,209,217,0.22)_0%,rgba(79,209,217,0)_36%)]"
-                : "bg-[linear-gradient(120deg,rgba(79,209,217,0.16)_0%,rgba(37,99,235,0.08)_42%,rgba(255,255,255,0)_76%)]"
+                ? "bg-[radial-gradient(circle_at_top_left,rgba(79,209,217,0.22)_0%,rgba(79,209,217,0)_36%)] dark:bg-[radial-gradient(circle_at_top_left,rgba(79,209,217,0.16)_0%,rgba(79,209,217,0)_40%)]"
+                : "bg-[linear-gradient(120deg,rgba(79,209,217,0.16)_0%,rgba(37,99,235,0.08)_42%,rgba(255,255,255,0)_76%)] dark:bg-[linear-gradient(120deg,rgba(79,209,217,0.12)_0%,rgba(37,99,235,0.16)_42%,rgba(8,17,29,0)_76%)]"
             )}
           />
         </>

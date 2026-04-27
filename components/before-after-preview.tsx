@@ -42,7 +42,7 @@ function BeforeAfterSlider({ featuredCase }: { featuredCase: BeforeAfterCase }) 
   const sliderId = useId()
 
   return (
-    <div className="relative flex h-full flex-col overflow-hidden rounded-[2rem] border border-border bg-card shadow-[0_24px_80px_-30px_rgba(15,23,42,0.25)]">
+    <div className="relative flex h-full flex-col overflow-hidden rounded-[2rem] border border-border bg-card shadow-[0_24px_80px_-30px_rgba(15,23,42,0.25)] dark:border-white/10 dark:bg-slate-950/76 dark:shadow-[0_24px_80px_-36px_rgba(0,0,0,0.88)]">
       <div className="relative aspect-[4/3] sm:aspect-[16/10] lg:min-h-[28rem] lg:flex-1">
         <Image
           src={featuredCase.afterImage}
@@ -110,19 +110,19 @@ function BeforeAfterSlider({ featuredCase }: { featuredCase: BeforeAfterCase }) 
         />
       </div>
 
-      <div className="flex flex-col gap-4 border-t border-border/80 bg-white/88 px-5 py-5 backdrop-blur-sm sm:flex-row sm:items-end sm:justify-between sm:px-6">
+      <div className="flex flex-col gap-4 border-t border-border/80 bg-white/88 px-5 py-5 backdrop-blur-sm dark:border-white/10 dark:bg-slate-950/80 sm:flex-row sm:items-end sm:justify-between sm:px-6">
         <div className="space-y-2">
-          <Badge variant="outline" className="rounded-full border-sky-200 bg-sky-50/60 text-sky-700">
+          <Badge variant="outline" className="rounded-full border-sky-200 bg-sky-50/60 text-sky-700 dark:border-sky-400/20 dark:bg-sky-400/10 dark:text-sky-300">
             {featuredCase.category}
           </Badge>
-          <h3 className="font-display text-2xl font-semibold tracking-tight text-slate-950">
+          <h3 className="font-display text-2xl font-semibold tracking-tight text-slate-950 dark:text-slate-50">
             {featuredCase.title}
           </h3>
-          <p className="max-w-2xl text-sm leading-7 text-slate-600 sm:text-base">
+          <p className="max-w-2xl text-sm leading-7 text-slate-600 dark:text-slate-300 sm:text-base">
             {featuredCase.description}
           </p>
         </div>
-        <p className="text-xs font-medium uppercase tracking-[0.24em] text-slate-500">
+        <p className="text-xs font-medium uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">
           Drag to compare
         </p>
       </div>
@@ -163,7 +163,7 @@ export function BeforeAfterPreview({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: 0.08 + index * 0.06 }}
-                className="group overflow-hidden rounded-[1.5rem] border border-border bg-card"
+                className="group overflow-hidden rounded-[1.5rem] border border-border bg-card dark:border-white/10 dark:bg-slate-950/76 dark:shadow-[0_24px_60px_-36px_rgba(0,0,0,0.88)]"
               >
                 <div className="relative aspect-[4/3] overflow-hidden">
                 <Image
@@ -174,12 +174,12 @@ export function BeforeAfterPreview({
                   sizes="(max-width: 1024px) 100vw, 320px"
                 />
                   <div className="absolute left-4 top-4">
-                    <Badge className="rounded-full bg-white/90 text-slate-900 hover:bg-white">{supportingCase.category}</Badge>
+                    <Badge className="rounded-full bg-white/90 text-slate-900 hover:bg-white dark:bg-slate-950/84 dark:text-slate-50 dark:hover:bg-slate-900">{supportingCase.category}</Badge>
                   </div>
                 </div>
                 <div className="space-y-2 px-5 py-4">
-                  <h3 className="font-semibold text-slate-950">{supportingCase.title}</h3>
-                  <p className="text-sm leading-6 text-slate-600">
+                  <h3 className="font-semibold text-slate-950 dark:text-slate-50">{supportingCase.title}</h3>
+                  <p className="text-sm leading-6 text-slate-600 dark:text-slate-300">
                     {supportingCase.description}
                   </p>
                 </div>

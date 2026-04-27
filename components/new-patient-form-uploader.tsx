@@ -204,19 +204,19 @@ export function NewPatientFormsUploader({
             </p>
             <div className="space-y-3">
               <div className="flex gap-3 rounded-2xl bg-secondary/70 px-4 py-3">
-                <span className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-white text-xs font-semibold text-primary shadow-sm">
+                <span className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-white text-xs font-semibold text-primary shadow-sm dark:bg-slate-950/82 dark:text-sky-300 dark:shadow-[0_18px_40px_-28px_rgba(0,0,0,0.88)]">
                   1
                 </span>
                 <p>Open each form below and complete it on your device or by hand.</p>
               </div>
               <div className="flex gap-3 rounded-2xl bg-secondary/70 px-4 py-3">
-                <span className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-white text-xs font-semibold text-primary shadow-sm">
+                <span className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-white text-xs font-semibold text-primary shadow-sm dark:bg-slate-950/82 dark:text-sky-300 dark:shadow-[0_18px_40px_-28px_rgba(0,0,0,0.88)]">
                   2
                 </span>
                 <p>Upload the completed files together so the office can review them before your visit.</p>
               </div>
               <div className="flex gap-3 rounded-2xl bg-secondary/70 px-4 py-3">
-                <span className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-white text-xs font-semibold text-primary shadow-sm">
+                <span className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-white text-xs font-semibold text-primary shadow-sm dark:bg-slate-950/82 dark:text-sky-300 dark:shadow-[0_18px_40px_-28px_rgba(0,0,0,0.88)]">
                   3
                 </span>
                 <p>
@@ -399,8 +399,8 @@ export function NewPatientFormsUploader({
             className="hidden"
             onChange={(event) => handleFileSelection(event.target.files)}
           />
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-sm">
-            <FileUp className="h-7 w-7 text-primary" />
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-sm dark:bg-slate-950/82 dark:shadow-[0_18px_40px_-28px_rgba(0,0,0,0.88)]">
+            <FileUp className="h-7 w-7 text-primary dark:text-sky-300" />
           </div>
           <p className="mt-4 text-base font-medium text-foreground">
             Drag and drop completed forms here

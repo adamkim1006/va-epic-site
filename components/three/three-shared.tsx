@@ -226,7 +226,7 @@ export function ScrollHint({ containerRef }: ScrollHintProps) {
       aria-hidden="true"
       className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 pointer-events-none select-none"
     >
-      <p className="text-[10px] font-semibold text-muted-foreground tracking-widest uppercase">
+      <p className="text-[10px] font-semibold tracking-widest uppercase text-muted-foreground dark:text-slate-300/88">
         Scroll to explore
       </p>
       {/* Staggered bouncing dots as a directional cue */}

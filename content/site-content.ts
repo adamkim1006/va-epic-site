@@ -16,13 +16,13 @@ export type PromotionBannerContent = {
 }
 
 export const officeHours: OfficeHour[] = [
-  { day: "Monday", hours: "Call for availability" },
-  { day: "Tuesday", hours: "Call for availability" },
-  { day: "Wednesday", hours: "Call for availability" },
-  { day: "Thursday", hours: "Call for availability" },
-  { day: "Friday", hours: "Call for availability" },
-  { day: "Saturday", hours: "1st & 3rd by appointment" },
-  { day: "Sunday", hours: "Closed" },
+  { day: "Monday", hours: "9:00 AM - 5:00 PM" },
+  { day: "Tuesday", hours: "9:00 AM - 5:00 PM" },
+  { day: "Wednesday", hours: "9:00 AM - 5:00 PM" },
+  { day: "Thursday", hours: "9:00 AM - 5:00 PM" },
+  { day: "Friday", hours: "CLOSED" },
+  { day: "Saturday", hours: "1st & 3rd Saturday · 9:00 AM - 1:00 PM" },
+  { day: "Sunday", hours: "CLOSED" },
 ]
 
 export const editablePageContent = {

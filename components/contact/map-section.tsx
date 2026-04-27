@@ -22,7 +22,7 @@ export function MapSection() {
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
           title="VA EPIC Location"
-          className="grayscale hover:grayscale-0 transition-all duration-500"
+          className="grayscale transition-all duration-500 hover:grayscale-0 dark:brightness-[0.82] dark:contrast-[1.08] dark:hue-rotate-[190deg] dark:invert-[0.92] dark:saturate-[0.8]"
         />
       </motion.div>
     </Section>
