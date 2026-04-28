@@ -2,14 +2,15 @@
 
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { ArrowRight, LucideIcon } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { ComponentType, SVGProps } from "react"
 
 interface ServiceCardProps {
   title: string
   description: string
   href: string
-  icon: LucideIcon
+  icon: ComponentType<SVGProps<SVGSVGElement> & { size?: number | string }>
   index?: number
 }
 
@@ -26,7 +27,7 @@ export function ServiceCard({ title, description, href, icon: Icon, index = 0 }:
           <CardHeader>
             <div className="mb-4 h-1 w-16 rounded-full brand-gradient" />
             <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-[linear-gradient(135deg,rgba(79,209,217,0.22)_0%,rgba(37,99,235,0.12)_100%)] text-primary ring-1 ring-accent/20 transition-colors group-hover:bg-accent group-hover:text-accent-foreground dark:bg-[linear-gradient(135deg,rgba(79,209,217,0.18)_0%,rgba(37,99,235,0.24)_100%)] dark:text-accent dark:ring-accent/25">
-              <Icon className="h-6 w-6" />
+              <Icon size={32} />
             </div>
             <CardTitle className="text-xl group-hover:text-primary transition-colors">
               {title}

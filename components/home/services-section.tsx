@@ -1,28 +1,29 @@
 "use client"
 
-import { Sparkles, Layers, Scissors } from "lucide-react"
 import { Section, SectionHeader } from "@/components/section"
 import { ServiceCard } from "@/components/service-card"
 import { servicePages } from "@/lib/site"
+
+import { DentalImplantIcon, FullArchIcon, PeriodontalCareIcon } from "@/components/service-icons"
 
 const services = [
   {
     title: servicePages[0].label,
     description: servicePages[0].shortDescription,
     href: servicePages[0].href,
-    icon: Sparkles,
+    icon: DentalImplantIcon,
   },
   {
     title: servicePages[1].label,
     description: servicePages[1].shortDescription,
     href: servicePages[1].href,
-    icon: Layers,
+    icon: FullArchIcon,
   },
   {
     title: servicePages[2].label,
     description: servicePages[2].shortDescription,
     href: servicePages[2].href,
-    icon: Scissors,
+    icon: PeriodontalCareIcon,
   },
 ]
 
