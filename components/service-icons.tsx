@@ -52,7 +52,7 @@ export function FullArchIcon({ size = 24, ...props }: IconProps) {
   )
 }
 
-/** Tooth with sparkles for periodontal care */
+/** Tooth with sparkles for periodontal care — thicker traced version */
 export function PeriodontalCareIcon({ size = 24, ...props }: IconProps) {
   return (
     <svg
@@ -61,6 +61,10 @@ export function PeriodontalCareIcon({ size = 24, ...props }: IconProps) {
       height={size}
       viewBox="0 0 512 512"
       fill="currentColor"
+      stroke="currentColor"
+      strokeWidth="6.144"
+      strokeLinecap="round"
+      strokeLinejoin="round"
       {...props}
     >
       <path d="M386.504,156.575c-19.34-15.092-38.896-20.3-56.195-20.19c-13.232,0.017-25.064,2.706-35.536,5.081
